@@ -26,5 +26,10 @@ namespace VehicleWebAppService.DAL
                 .Build();
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        }
     }
 }

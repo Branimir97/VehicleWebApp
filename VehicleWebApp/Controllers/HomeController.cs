@@ -21,7 +21,7 @@ namespace VehicleWebApp.Controllers
 
         public IActionResult Index()
         {
-            var context = new VehicleContext();
+            //var context = new VehicleContext();
             return View();
         }
 

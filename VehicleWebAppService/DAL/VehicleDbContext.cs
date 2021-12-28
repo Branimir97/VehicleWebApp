@@ -8,11 +8,16 @@ using VehicleWebAppService.Models;
 
 namespace VehicleWebAppService.DAL
 {
-    public class VehicleContext : DbContext
+    public class VehicleDbContext : DbContext
     {
-        public VehicleContext(DbContextOptions options) : base(options) { }
+        public VehicleDbContext(DbContextOptions<VehicleDbContext> options) : base(options) { }
 
         public DbSet<VehicleMake> VehicleMakes { get; set; }
         public DbSet<VehicleModel> VehicleModels { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Test");
+        }
     }
 }

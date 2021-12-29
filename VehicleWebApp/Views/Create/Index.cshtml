@@ -1,14 +1,20 @@
-﻿@model VehicleWebAppService.Models.VehicleMake
+﻿@model VehicleWebApp.Controllers.CreateController
 @{ 
     ViewData["Title"] = "New vehicle make";
 }
 
-
 <h1>Create new vehicle make</h1>
 
-<form method="post" asp-action="Create">
+
+<form method="post" asp-action="Create" asp-controller="Create">
     <div asp-validation-summary="All"></div>
-    <input asp-for="VehicleMake.Name" />
-    <input asp-for="VehicleMake.Abrv" />
-    <input type="submit" />
+    <div class="form-group">
+        Name:
+        <input asp-for="VehicleMake.Name" placeholder="eg. BMW" required/>
+    </div>
+    <div class="form-group">
+        Abrv:
+        <input asp-for="VehicleMake.Abrv" placeholder="eg. 530xd F10" required/>
+    </div>
+    <input class="btn btn-outline-success" type="submit" value="Create" />
 </form>

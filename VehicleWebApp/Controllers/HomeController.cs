@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,28 +13,22 @@ namespace VehicleWebApp.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
+        private readonly VehicleDbContext VehicleDbContext;
 
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
-
-        public IActionResult Index()
+        public HomeController(VehicleDbContext vehicleDbContext)
         {
-            //var context = new VehicleContext();
-            return View();
+            VehicleDbContext = vehicleDbContext;
+        }
+
+        public async Task<ViewResult> Index()
+        {
+            var vehicleMakes = await VehicleDbContext.VehicleMakes.ToListAsync();
+            return View(vehicleMakes);
         }
 
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

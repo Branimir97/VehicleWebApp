@@ -1,6 +1,6 @@
 ﻿@model List<VehicleWebAppService.Models.VehicleMake>
 @{ 
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Homepage";
 }
 
 <a asp-controller="Create" asp-action="Index">Create new</a>
@@ -10,7 +10,8 @@
         <tr>
             <th>Id</th>
             <th>Name</th>
-            <th> Abrv</th>
+            <th>Abrv</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -21,7 +22,10 @@
                 <td>@item.Name</td>
                 <td>@item.Abrv</td>
                 <td>
-                    <a asp-page="/Edit" asp-route-id="@item.Id">Edit</a>
+                    <a asp-controller="Edit" asp-action="Index" 
+                        asp-route-id="@item.Id">Edit</a> |
+                    <a asp-controller="Details" asp-action="Index" 
+                        asp-route-id="@item.Id">Details</a>
                 </td>
             </tr>
         }    

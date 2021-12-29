@@ -1,6 +1,14 @@
-﻿@{ 
-    ViewData["Title"] = "Create";
+﻿@model VehicleWebAppService.Models.VehicleMake
+@{ 
+    ViewData["Title"] = "New vehicle make";
 }
 
 
-<h1>Create new vehicle</h1>
+<h1>Create new vehicle make</h1>
+
+<form method="post" asp-action="Create">
+    <div asp-validation-summary="All"></div>
+    <input asp-for="VehicleMake.Name" />
+    <input asp-for="VehicleMake.Abrv" />
+    <input type="submit" />
+</form>

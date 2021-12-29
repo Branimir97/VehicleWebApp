@@ -5,13 +5,13 @@ using VehicleWebAppService.Models;
 
 namespace VehicleWebApp.Controllers
 {
-    public class CreateController : Controller
+    public class VehicleMakeController : Controller
     {
         private readonly VehicleDbContext VehicleDbContext;
         [BindProperty]
         public VehicleMake VehicleMake { get; set; }
 
-        public CreateController(VehicleDbContext vehicleDbContext)
+        public VehicleMakeController(VehicleDbContext vehicleDbContext)
         {
             VehicleDbContext = vehicleDbContext;
         }
@@ -21,7 +21,6 @@ namespace VehicleWebApp.Controllers
             return View();
         }
 
-        [HttpPost, ActionName("Create")]
         public async Task<IActionResult> Create()
         {
             if(!ModelState.IsValid)

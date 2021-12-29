@@ -20,20 +20,20 @@ namespace VehicleWebAppService.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<VehicleMake>().HasData(
-                new VehicleMake { Name = "BMW", Abrv = "BMW" },
-                new VehicleMake { Name = "Ford", Abrv = "Ford" },
-                new VehicleMake { Name = "Audi", Abrv = "Audi" },
-                new VehicleMake { Name = "Porsche", Abrv = "Porsche" },
-                new VehicleMake { Name = "Fiat", Abrv = "Fiat" }
+                new VehicleMake { Id = 1, Name = "BMW", Abrv = "BMW" },
+                new VehicleMake { Id = 2, Name = "Ford", Abrv = "Ford" },
+                new VehicleMake { Id = 3, Name = "Audi", Abrv = "Audi" },
+                new VehicleMake { Id = 4, Name = "Porsche", Abrv = "Porsche" },
+                new VehicleMake { Id = 5, Name = "Fiat", Abrv = "Fiat" }
             );
 
-            modelBuilder.Entity<VehicleModel>().HasData(
-                new VehicleModel { Name = "Focus", MakeId = , Abrv = "Focus" },
-                new VehicleModel { Name = "530xd", MakeId = , Abrv = "F10" },
-                new VehicleModel { Name = "Cayenne 3.0", MakeId = , Abrv = "Cayenne" },
-                new VehicleModel { Name = "Grande Punto", MakeId = , Abrv = "Punto" },
-                new VehicleModel { Name = "A4 2.0TDI", MakeId = , Abrv = "B8.5" }
-            );
+            //modelBuilder.Entity<VehicleModel>().HasData(
+            //    new VehicleModel { Id = 1, Name = "Focus", VehicleMake = VehicleMakes[1], Abrv = "Focus" },
+            //    new VehicleModel { Id = 2, Name = "530xd", VehicleMake = VehicleMakes[0], Abrv = "F10" },
+            //    new VehicleModel { Id = 3, Name = "Cayenne 3.0", VehicleMake = VehicleMakes[3], Abrv = "Cayenne" },
+            //    new VehicleModel { Id = 4, Name = "Grande Punto", VehicleMake = VehicleMakes[4], Abrv = "Punto" },
+            //    new VehicleModel { Id = 5, Name = "A4 2.0TDI", VehicleMake = VehicleMakes[2], Abrv = "B8.5" }
+            //);
         }
     }
 }

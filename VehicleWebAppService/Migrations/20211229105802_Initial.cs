@@ -28,7 +28,7 @@ namespace VehicleWebAppService.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MakeIdId = table.Column<int>(type: "int", nullable: true),
+                    VehicleMakeId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Abrv = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -36,16 +36,28 @@ namespace VehicleWebAppService.Migrations
                 {
                     table.PrimaryKey("PK_VehicleModels", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_VehicleModels_VehicleMakes_MakeIdId",
-                        column: x => x.MakeIdId,
+                        name: "FK_VehicleModels_VehicleMakes_VehicleMakeId",
+                        column: x => x.VehicleMakeId,
                         principalTable: "VehicleMakes",
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.InsertData(
+                table: "VehicleMakes",
+                columns: new[] { "Id", "Abrv", "Name" },
+                values: new object[,]
+                {
+                    { 1, "BMW", "BMW" },
+                    { 2, "Ford", "Ford" },
+                    { 3, "Audi", "Audi" },
+                    { 4, "Porsche", "Porsche" },
+                    { 5, "Fiat", "Fiat" }
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_VehicleModels_MakeIdId",
+                name: "IX_VehicleModels_VehicleMakeId",
                 table: "VehicleModels",
-                column: "MakeIdId");
+                column: "VehicleMakeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

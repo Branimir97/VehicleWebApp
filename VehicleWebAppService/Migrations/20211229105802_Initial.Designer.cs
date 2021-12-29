@@ -12,7 +12,7 @@ using VehicleWebAppService.DAL;
 namespace VehicleWebAppService.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    [Migration("20211228224516_Initial")]
+    [Migration("20211229105802_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,38 @@ namespace VehicleWebAppService.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("VehicleMakes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Abrv = "BMW",
+                            Name = "BMW"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Abrv = "Ford",
+                            Name = "Ford"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Abrv = "Audi",
+                            Name = "Audi"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Abrv = "Porsche",
+                            Name = "Porsche"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Abrv = "Fiat",
+                            Name = "Fiat"
+                        });
                 });
 
             modelBuilder.Entity("VehicleWebAppService.Models.VehicleModel", b =>
@@ -54,26 +86,26 @@ namespace VehicleWebAppService.Migrations
                     b.Property<string>("Abrv")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MakeIdId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("VehicleMakeId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("MakeIdId");
+                    b.HasIndex("VehicleMakeId");
 
                     b.ToTable("VehicleModels");
                 });
 
             modelBuilder.Entity("VehicleWebAppService.Models.VehicleModel", b =>
                 {
-                    b.HasOne("VehicleWebAppService.Models.VehicleMake", "MakeId")
+                    b.HasOne("VehicleWebAppService.Models.VehicleMake", "VehicleMake")
                         .WithMany()
-                        .HasForeignKey("MakeIdId");
+                        .HasForeignKey("VehicleMakeId");
 
-                    b.Navigation("MakeId");
+                    b.Navigation("VehicleMake");
                 });
 #pragma warning restore 612, 618
         }

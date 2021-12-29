@@ -51,7 +51,12 @@ namespace VehicleWebAppService.Migrations
                     { 2, "Ford", "Ford" },
                     { 3, "Audi", "Audi" },
                     { 4, "Porsche", "Porsche" },
-                    { 5, "Fiat", "Fiat" }
+                    { 5, "Fiat", "Fiat" },
+                    { 6, "BMW", "BMW" },
+                    { 7, "VW", "Volkswagen" },
+                    { 8, "VW", "Volkswagen" },
+                    { 9, "Opel", "Opel" },
+                    { 10, "GM", "General Motors" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -12,7 +12,7 @@ using VehicleWebAppService.DAL;
 namespace VehicleWebAppService.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    [Migration("20211229105802_Initial")]
+    [Migration("20211229111115_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,6 +72,36 @@ namespace VehicleWebAppService.Migrations
                             Id = 5,
                             Abrv = "Fiat",
                             Name = "Fiat"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Abrv = "BMW",
+                            Name = "BMW"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Abrv = "VW",
+                            Name = "Volkswagen"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Abrv = "VW",
+                            Name = "Volkswagen"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Abrv = "Opel",
+                            Name = "Opel"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Abrv = "GM",
+                            Name = "General Motors"
                         });
                 });
 

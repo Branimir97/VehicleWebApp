@@ -24,15 +24,16 @@ namespace VehicleWebAppService.DAL
                 new VehicleMake { Id = 2, Name = "Ford", Abrv = "Ford" },
                 new VehicleMake { Id = 3, Name = "Audi", Abrv = "Audi" },
                 new VehicleMake { Id = 4, Name = "Porsche", Abrv = "Porsche" },
-                new VehicleMake { Id = 5, Name = "Fiat", Abrv = "Fiat" }
+                new VehicleMake { Id = 5, Name = "Fiat", Abrv = "Fiat" },
+                new VehicleMake { Id = 6, Name = "BMW", Abrv = "BMW" },
+                new VehicleMake { Id = 7, Name = "Volkswagen", Abrv = "VW" },
+                new VehicleMake { Id = 8, Name = "Volkswagen", Abrv = "VW" },
+                new VehicleMake { Id = 9, Name = "Opel", Abrv = "Opel" },
+                new VehicleMake { Id = 10, Name = "General Motors", Abrv = "GM" }
             );
 
             //modelBuilder.Entity<VehicleModel>().HasData(
-            //    new VehicleModel { Id = 1, Name = "Focus", VehicleMake = VehicleMakes[1], Abrv = "Focus" },
-            //    new VehicleModel { Id = 2, Name = "530xd", VehicleMake = VehicleMakes[0], Abrv = "F10" },
-            //    new VehicleModel { Id = 3, Name = "Cayenne 3.0", VehicleMake = VehicleMakes[3], Abrv = "Cayenne" },
-            //    new VehicleModel { Id = 4, Name = "Grande Punto", VehicleMake = VehicleMakes[4], Abrv = "Punto" },
-            //    new VehicleModel { Id = 5, Name = "A4 2.0TDI", VehicleMake = VehicleMakes[2], Abrv = "B8.5" }
+            //    new VehicleModel { Id = 1, VehicleMake = 1, Name="530xd", Abrv="F10"}
             //);
         }
     }

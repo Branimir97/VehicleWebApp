@@ -3,29 +3,41 @@
     ViewData["Title"] = "Vehicle make delete";
 }
 
-<h1>Vehicle make delete (@Model.Id)</h1>
+<h3>Vehicle make delete</h3>
+<a asp-controller="VehicleMake" asp-action="Index">
+    <i class="fas fa-long-arrow-alt-left"></i> Back to list
+</a>
 
-<h2>Are you sure that you want to delete this vehicle make?</h2>
 <div class="row">
     <div class="col-md-4">
-        <h6>
-            @Html.DisplayNameFor(model => model.Id):
-            @Html.DisplayFor(model => model.Id)
-        </h6>
-        <h6>
-            @Html.DisplayNameFor(model => model.Name):
-            @Html.DisplayFor(model => model.Name)
-        </h6>
-        <h6>
-            @Html.DisplayNameFor(model => model.Abrv):
-            @Html.DisplayFor(model => model.Abrv) 
-        </h6>
+        <p>Id: <b>@Model.Id</b></p>
+        <p>Name: <b>@Model.Name</b></p>
+        <p>Abrv: <b>@Model.Abrv</b></p>
+        
+        <p>Models:</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Abrv</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
 <form method="post" asp-controller="VehicleMake" asp-action="Delete">
-    <input type="submit" class="btn btn-success" asp-constroller="VehicleMake" asp-action="Delete" 
-    value="Delete vehicle make"/>
+    <input type="submit" class="btn btn-danger" asp-constroller="Vehi<cleMake" asp-action="Delete" 
+    value="Delete"/><br />
+    <small><i>Note: with vehicle makes also will be deleted their vehicle models if they exist.</i></small>
 </form>
 
 <a asp-controller="VehicleMake" asp-action="Index">

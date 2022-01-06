@@ -40,16 +40,22 @@ namespace VehicleWebApp.Controllers
         // POST: VehicleMakeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create([Bind("Name", "Abrv")] VehicleMake vehicleMake)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if(ModelState.IsValid)
+                {
+                    await DbContext.AddAsync(vehicleMake);
+                    await DbContext.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
-            catch
+            catch (DbUpdateException ex)
             {
-                return View();
+                ModelState.AddModelError("", ex.Message);
             }
+            return View();
         }
 
         // GET: VehicleMakeController/Edit/5

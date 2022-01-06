@@ -5,16 +5,19 @@
 
 <h1>Create new vehicle make</h1>
 
-
 <form method="post" asp-controller="VehicleMake" asp-action="Create" >
     <div asp-validation-summary="All"></div>
-    <div class="form-group">
-        Name:
-        <input asp-for="VehicleMake.Name" placeholder="eg. BMW" required/>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <b>Name:</b>
+            <input class="form-control" asp-for="VehicleMake.Name" placeholder="eg. BMW" required/>
+        </div>
     </div>
-    <div class="form-group">
-        Abrv:
-        <input asp-for="VehicleMake.Abrv" placeholder="eg. 530xd F10" required/>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <b>Abrv:</b>
+            <input class="form-control" asp-for="VehicleMake.Abrv" placeholder="eg. 530xd F10" required/>
+        </div>
     </div>
     <input class="btn btn-outline-success" type="submit" value="Create" />
 </form>

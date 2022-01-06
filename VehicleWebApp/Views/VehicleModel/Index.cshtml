@@ -5,35 +5,40 @@
 
 <a class="btn btn-info" asp-controller="VehicleModel" asp-action="Create">Create new <i class="fas fa-car-alt"></i></a>
 
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Vehicle make</th>
-            <th>Name</th>
-            <th>Abrv</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+@if (Model == null)
+{
+    <p class="text-center">There are currently no vehicle models in database.</p>
+} else
+{
+     <table class="table">
+        <thead>
             <tr>
-                <td>@item.Id</td>   
-                <td></td>
-                <td>@item.Name</td>
-                <td>@item.Abrv</td>
-                <td>
-                    <a asp-controller="VehicleMake" asp-action="Edit" 
-                        asp-route-id="@item.Id">Edit</a> |
-                    <a asp-controller="VehicleMake" asp-action="Details" 
-                        asp-route-id="@item.Id">Details</a> |
-                    <a asp-controller="VehicleMake" asp-action="Delete" 
-                        asp-route-id="@item.Id">Delete</a>
-                </td>
+                <th>Id</th>
+                <th>Vehicle make</th>
+                <th>Name</th>
+                <th>Abrv</th>
+                <th>Actions</th>
             </tr>
-        }    
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>   
+                        <td></td>
+                        <td>@item.Name</td>
+                        <td>@item.Abrv</td>
+                        <td>
+                            <a asp-controller="VehicleMake" asp-action="Edit" 
+                                asp-route-id="@item.Id">Edit</a> |
+                            <a asp-controller="VehicleMake" asp-action="Details" 
+                                asp-route-id="@item.Id">Details</a> |
+                            <a asp-controller="VehicleMake" asp-action="Delete" 
+                                asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }    
+            }
+        </tbody>
+    </table>   
+}

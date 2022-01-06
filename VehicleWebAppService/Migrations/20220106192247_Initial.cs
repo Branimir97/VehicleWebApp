@@ -30,7 +30,7 @@ namespace VehicleWebAppService.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Abrv = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    VehicleMakeId = table.Column<int>(type: "int", nullable: true)
+                    VehicleMakeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,7 +39,8 @@ namespace VehicleWebAppService.Migrations
                         name: "FK_VehicleModels_VehicleMakes_VehicleMakeId",
                         column: x => x.VehicleMakeId,
                         principalTable: "VehicleMakes",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(

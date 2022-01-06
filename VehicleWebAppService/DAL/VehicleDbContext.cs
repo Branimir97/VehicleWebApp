@@ -1,11 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VehicleWebAppService.Models;
 
 namespace VehicleWebAppService.DAL
@@ -31,10 +24,6 @@ namespace VehicleWebAppService.DAL
                 new VehicleMake { Id = 9, Name = "Opel", Abrv = "Opel" },
                 new VehicleMake { Id = 10, Name = "General Motors", Abrv = "GM" }
             );
-
-            //modelBuilder.Entity<VehicleModel>().HasData(
-            //    new VehicleModel { Id = 1, VehicleMake = 1, Name="530xd", Abrv="F10"}
-            //);
         }
     }
 }

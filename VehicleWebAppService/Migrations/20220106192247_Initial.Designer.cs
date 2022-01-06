@@ -11,8 +11,8 @@ using VehicleWebAppService.DAL;
 namespace VehicleWebAppService.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    [Migration("20220106190303_AddedVirtualVehicleMake")]
-    partial class AddedVirtualVehicleMake
+    [Migration("20220106192247_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

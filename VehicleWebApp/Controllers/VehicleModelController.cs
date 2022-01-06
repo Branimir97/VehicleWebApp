@@ -52,7 +52,7 @@ namespace VehicleWebApp.Controllers
             }
             catch (DbUpdateException ex)
             {
-                ModelState.AddModelError("", ex.Message);
+                ModelState.AddModelError("", ex.ToString());
             }
             return View(vehicleModel);
         }

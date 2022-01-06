@@ -12,8 +12,8 @@ using VehicleWebAppService.DAL;
 namespace VehicleWebAppService.Migrations
 {
     [DbContext(typeof(VehicleDbContext))]
-    [Migration("20220105220241_initial")]
-    partial class initial
+    [Migration("20220106185211_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -135,11 +135,14 @@ namespace VehicleWebAppService.Migrations
 
             modelBuilder.Entity("VehicleWebAppService.Models.VehicleModel", b =>
                 {
-                    b.HasOne("VehicleWebAppService.Models.VehicleMake", "VehicleMake")
-                        .WithMany()
+                    b.HasOne("VehicleWebAppService.Models.VehicleMake", null)
+                        .WithMany("VehicleModels")
                         .HasForeignKey("VehicleMakeId");
+                });
 
-                    b.Navigation("VehicleMake");
+            modelBuilder.Entity("VehicleWebAppService.Models.VehicleMake", b =>
+                {
+                    b.Navigation("VehicleModels");
                 });
 #pragma warning restore 612, 618
         }

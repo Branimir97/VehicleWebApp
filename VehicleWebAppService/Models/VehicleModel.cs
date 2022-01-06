@@ -11,7 +11,6 @@ namespace VehicleWebAppService.Models
     {
         [Key]
         public int Id { get; set; }
-        public VehicleMake VehicleMake { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

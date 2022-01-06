@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using VehicleWebAppService.DAL;
+using VehicleWebAppService.Models;
 
 namespace VehicleWebApp.Controllers
 {
@@ -31,22 +32,29 @@ namespace VehicleWebApp.Controllers
         // GET: VehicleModel/Create
         public async Task<IActionResult> Create()
         {
+            ViewBag.VehicleMakes = new SelectList(DbContext.VehicleMakes, "Id", "Name");
             return View();
         }
 
         // POST: VehicleModelController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create([Bind("VehicleMake", "Name", "Abrv")] VehicleModel vehicleModel)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    await DbContext.AddAsync(vehicleModel);
+                    await DbContext.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
-            catch
+            catch (DbUpdateException ex)
             {
-                return View();
+                ModelState.AddModelError("", ex.Message);
             }
+            return View(vehicleModel);
         }
 
         // GET: VehicleModelController/Edit/5

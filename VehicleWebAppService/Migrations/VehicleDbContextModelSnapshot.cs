@@ -133,11 +133,14 @@ namespace VehicleWebAppService.Migrations
 
             modelBuilder.Entity("VehicleWebAppService.Models.VehicleModel", b =>
                 {
-                    b.HasOne("VehicleWebAppService.Models.VehicleMake", "VehicleMake")
-                        .WithMany()
+                    b.HasOne("VehicleWebAppService.Models.VehicleMake", null)
+                        .WithMany("VehicleModels")
                         .HasForeignKey("VehicleMakeId");
+                });
 
-                    b.Navigation("VehicleMake");
+            modelBuilder.Entity("VehicleWebAppService.Models.VehicleMake", b =>
+                {
+                    b.Navigation("VehicleModels");
                 });
 #pragma warning restore 612, 618
         }

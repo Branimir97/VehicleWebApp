@@ -4,7 +4,7 @@
 
 namespace VehicleWebAppService.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,9 +28,9 @@ namespace VehicleWebAppService.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    VehicleMakeId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Abrv = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Abrv = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VehicleMakeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

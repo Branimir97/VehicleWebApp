@@ -1,25 +1,35 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using VehicleWebAppService.DAL;
 
 namespace VehicleWebApp.Controllers
 {
     public class VehicleModelController : Controller
     {
-        // GET: VehicleModel
-        public ActionResult Index()
+        private readonly VehicleDbContext DbContext;
+
+        public VehicleModelController(VehicleDbContext dbContext)
         {
-            return View();
+            DbContext = dbContext;
         }
 
-        // GET: VehicleModelController/Details/5
+        // GET: VehicleModel
+        public async Task<IActionResult> Index()
+        {
+            return View(await DbContext.VehicleModels.ToListAsync());
+        }
+
+        // GET: VehicleModel/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: VehicleModelController/Create
+        // GET: VehicleModel/Create
         public ActionResult Create()
         {
+
             return View();
         }
 

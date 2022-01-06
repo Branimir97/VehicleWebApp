@@ -18,8 +18,7 @@ namespace VehicleWebApp.Controllers
         // GET: VehicleMake
         public async Task<IActionResult> Index()
         {
-            var vehicleMakes = await DbContext.VehicleMakes.ToListAsync();
-            return View(vehicleMakes);
+            return View(await DbContext.VehicleMakes.ToListAsync());
         }
 
         // GET: VehicleMake/Details/5

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using VehicleWebAppService.DAL;
@@ -66,21 +65,21 @@ namespace VehicleWebApp.Controllers
         }
 
         // GET: VehicleMake/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var vehicleMake = await DbContext.VehicleMakes.FindAsync(id);
+            return View(vehicleMake);
         }
 
         // POST: VehicleMake/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if(id == null)
-            {
-                return NotFound();
-            }
-
             var vehicleMakeToUpdate = await DbContext.VehicleMakes.FirstOrDefaultAsync(v => v.Id == id);
             if(await TryUpdateModelAsync<VehicleMake>(
                 vehicleMakeToUpdate, "", v => v.Name, v => v.Abrv))

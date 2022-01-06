@@ -1,5 +1,23 @@
-﻿@{ 
+﻿@model VehicleWebAppService.Models.VehicleMake
+@{ 
     ViewData["Title"] = "Vehicle make details";
 }
 
 <h1>Vehicle make details</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <h6>
+            @Html.DisplayNameFor(model => model.Id)
+            @Html.DisplayFor(model => model.Id)
+        </h6>
+        <h6>
+            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayFor(model => model.Name)
+        </h6>
+        <h6>
+            @Html.DisplayNameFor(model => model.Abrv)
+            @Html.DisplayFor(model => model.Abrv) 
+        </h6>
+    </div>
+</div>

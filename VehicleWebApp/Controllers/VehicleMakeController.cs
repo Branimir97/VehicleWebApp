@@ -11,33 +11,40 @@ namespace VehicleWebApp.Controllers
     {
         private readonly VehicleDbContext DbContext;
 
-        public VehicleMake VehicleMake { get; set; }
-
         public VehicleMakeController(VehicleDbContext dbContext)
         {
             DbContext = dbContext;
         }
 
-        // GET: VehicleMakeController
+        // GET: VehicleMake
         public async Task<IActionResult> Index()
         {
             var vehicleMakes = await DbContext.VehicleMakes.ToListAsync();
             return View(vehicleMakes);
         }
 
-        // GET: VehicleMakeController/Details/5
-        public ActionResult Details(int id)
+        // GET: VehicleMake/Details/5
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            if(id == null)
+            {
+                return NotFound();
+            }
+            var vehicleMake = await DbContext.VehicleMakes.FindAsync(id);
+            if(vehicleMake == null)
+            {
+                return NotFound();
+            }
+            return View(vehicleMake);
         }
 
-        // GET: VehicleMakeController/Create
+        // GET: VehicleMake/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: VehicleMakeController/Create
+        // POST: VehicleMake/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind("Name", "Abrv")] VehicleMake vehicleMake)

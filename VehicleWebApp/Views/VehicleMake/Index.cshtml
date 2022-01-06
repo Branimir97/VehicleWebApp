@@ -5,7 +5,7 @@
 
 <a class="btn btn-info" asp-controller="VehicleMake" asp-action="Create">Create new <i class="fas fa-car-alt"></i></a>
 
-@if (Model == null)
+@if (Model == null || Model.Count == 0)
 {
     <p class="text-center">There are currently no vehicle makes in database.</p>
 } else

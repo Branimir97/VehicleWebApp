@@ -1,11 +1,11 @@
-﻿@model List<VehicleWebAppService.Models.VehicleMake>
+﻿@model List<VehicleWebAppService.Models.VehicleModel>
 @{ 
     ViewData["Title"] = "Vehicle models";
 }
 
 <a class="btn btn-info" asp-controller="VehicleModel" asp-action="Create">Create new <i class="fas fa-car-alt"></i></a>
 
-@if (Model == null)
+@if (Model == null || Model.Count == 0)
 {
     <p class="text-center">There are currently no vehicle models in database.</p>
 } else

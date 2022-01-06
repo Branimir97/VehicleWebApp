@@ -62,7 +62,7 @@ namespace VehicleWebApp.Controllers
             {
                 ModelState.AddModelError("", ex.Message);
             }
-            return View();
+            return View(vehicleMake);
         }
 
         // GET: VehicleMake/Edit/5
@@ -98,25 +98,39 @@ namespace VehicleWebApp.Controllers
             return View(vehicleMakeToUpdate);
         }
 
-        // GET: VehicleMakeController/Delete/5
-        public ActionResult Delete(int id)
+        // GET: VehicleMake/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            } 
+            var vehicleMake = await DbContext.VehicleMakes.FindAsync(id);
+            return View(vehicleMake);
         }
 
-        // POST: VehicleMakeController/Delete/5
+        // POST: VehicleMake/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(int id)
         {
+            var vehicleMake = await DbContext.VehicleMakes.FindAsync(id);
+
+            if(vehicleMake == null)
+            {
+                return NotFound();
+            }
             try
             {
-                return RedirectToAction(nameof(Index));
+                DbContext.VehicleMakes.Remove(vehicleMake);
+                await DbContext.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
-            catch
+            catch (DbUpdateException ex)
             {
-                return View();
+                ModelState.AddModelError("", ex.Message);
             }
+            return View(vehicleMake);
         }
     }
 }

@@ -1,35 +1,83 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using VehicleWebAppService.DAL;
-using VehicleWebAppService.Models;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace VehicleWebApp.Controllers
 {
     public class VehicleMakeController : Controller
     {
-        private readonly VehicleDbContext VehicleDbContext;
-        [BindProperty]
-        public VehicleMake VehicleMake { get; set; }
-
-        public VehicleMakeController(VehicleDbContext vehicleDbContext)
-        {
-            VehicleDbContext = vehicleDbContext;
-        }
-
-        public IActionResult Index()
+        // GET: VehicleMakeController
+        public ActionResult Index()
         {
             return View();
         }
 
-        public async Task<IActionResult> Create()
+        // GET: VehicleMakeController/Details/5
+        public ActionResult Details(int id)
         {
-            if(!ModelState.IsValid)
+            return View();
+        }
+
+        // GET: VehicleMakeController/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: VehicleMakeController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
             {
                 return View();
             }
-            await VehicleDbContext.AddAsync(VehicleMake);
-            VehicleDbContext.SaveChanges();
-            return RedirectToRoute("Index");
         }
-     }
+
+        // GET: VehicleMakeController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        // POST: VehicleMakeController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: VehicleMakeController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: VehicleMakeController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+    }
 }

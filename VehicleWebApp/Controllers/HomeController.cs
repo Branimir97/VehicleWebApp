@@ -25,10 +25,5 @@ namespace VehicleWebApp.Controllers
             var vehicleMakes = await VehicleDbContext.VehicleMakes.ToListAsync();
             return View(vehicleMakes);
         }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
     }
 }

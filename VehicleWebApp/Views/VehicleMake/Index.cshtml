@@ -1,0 +1,33 @@
+﻿@model List<VehicleWebAppService.Models.VehicleMake>
+@{ 
+    ViewData["Title"] = "Homepage";
+}
+
+<a asp-controller="VehicleMake" asp-action="Index">Create new</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Abrv</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>   
+                <td>@item.Name</td>
+                <td>@item.Abrv</td>
+                <td>
+                    <a asp-controller="Edit" asp-action="Index" 
+                        asp-route-id="@item.Id">Edit</a> |
+                    <a asp-controller="Details" asp-action="Index" 
+                        asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }    
+    </tbody>
+</table>

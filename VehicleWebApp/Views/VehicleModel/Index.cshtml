@@ -1,14 +1,17 @@
 ﻿@model List<VehicleWebAppService.Models.VehicleMake>
 @{ 
-    ViewData["Title"] = "Vehicle makes";
+    ViewData["Title"] = "Vehicle models";
 }
 
-<a class="btn btn-info" asp-controller="VehicleMake" asp-action="Create">Create new <i class="fas fa-car-alt"></i></a>
+<a class="btn btn-info" asp-controller="VehicleModel" asp-action="Create">Create new <i class="fas fa-car-alt"></i></a>
+
+
 
 <table class="table">
     <thead>
         <tr>
             <th>Id</th>
+            <th>Vehicle make</th>
             <th>Name</th>
             <th>Abrv</th>
             <th>Actions</th>
@@ -19,6 +22,7 @@
         {
             <tr>
                 <td>@item.Id</td>   
+                <td></td>
                 <td>@item.Name</td>
                 <td>@item.Abrv</td>
                 <td>

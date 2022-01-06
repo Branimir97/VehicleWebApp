@@ -14,18 +14,24 @@
     <div class="row">
         <div class="col-md-4 form-group">
             <b>Vehicle make:</b>
+            @Html.DropDownList("VehicleMakes", new List<SelectListItem> 
+            {
+                new SelectListItem {Text = "IT", Value = "1"},
+                new SelectListItem {Text = "HR", Value = "2"},
+                new SelectListItem {Text = "Payroll", Value = "3"}
+            }, "Select vehicle make", new { @class = "form-control" })
         </div>
     </div>
     <div class="row">
         <div class="col-md-4 form-group">
             <b>Name:</b>
-            <input class="form-control" asp-for="@Model.Name" placeholder="eg. BMW"/>
+            <input class="form-control" asp-for="@Model.Name" placeholder="eg. 530xd"/>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4 form-group">
             <b>Abrv:</b>
-            <input class="form-control" asp-for="@Model.Abrv" placeholder="eg. 530xd F10"/>
+            <input class="form-control" asp-for="@Model.Abrv" placeholder="eg. F10"/>
         </div>
     </div>
     <input class="btn btn-success" type="submit" value="Create" />

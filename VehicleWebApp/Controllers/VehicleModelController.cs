@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using VehicleWebAppService.DAL;
 
 namespace VehicleWebApp.Controllers
@@ -27,9 +29,8 @@ namespace VehicleWebApp.Controllers
         }
 
         // GET: VehicleModel/Create
-        public ActionResult Create()
+        public async Task<IActionResult> Create()
         {
-
             return View();
         }
 

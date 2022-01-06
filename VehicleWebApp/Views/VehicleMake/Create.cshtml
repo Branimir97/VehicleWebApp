@@ -5,6 +5,10 @@
 
 <h1>Create new vehicle make</h1>
 
+<a asp-controller="VehicleMake" asp-action="Index">
+    <i class="fas fa-long-arrow-alt-left"></i> Back to list
+    </a>
+
 <form method="post" asp-controller="VehicleMake" asp-action="Create" >
     <div asp-validation-summary="All"></div>
     <div class="row">
@@ -19,5 +23,5 @@
             <input class="form-control" asp-for="@Model.Abrv" placeholder="eg. 530xd F10" required/>
         </div>
     </div>
-    <input class="btn btn-outline-success" type="submit" value="Create" />
+    <input class="btn btn-success" type="submit" value="Create" />
 </form>

@@ -1,14 +1,28 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using VehicleWebAppService.DAL;
+using VehicleWebAppService.Models;
 
 namespace VehicleWebApp.Controllers
 {
     public class VehicleMakeController : Controller
     {
-        // GET: VehicleMakeController
-        public ActionResult Index()
+        private readonly VehicleDbContext DbContext;
+
+        public VehicleMake VehicleMake { get; set; }
+
+        public VehicleMakeController(VehicleDbContext dbContext)
         {
-            return View();
+            DbContext = dbContext;
+        }
+
+        // GET: VehicleMakeController
+        public async Task<IActionResult> Index()
+        {
+            var vehicleMakes = await DbContext.VehicleMakes.ToListAsync();
+            return View(vehicleMakes);
         }
 
         // GET: VehicleMakeController/Details/5

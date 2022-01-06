@@ -24,7 +24,7 @@ namespace VehicleWebApp.Controllers
         }
 
         // GET: VehicleMake/Details/5
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
             if(id == null)
             {
@@ -65,25 +65,37 @@ namespace VehicleWebApp.Controllers
             return View();
         }
 
-        // GET: VehicleMakeController/Edit/5
+        // GET: VehicleMake/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: VehicleMakeController/Edit/5
+        // POST: VehicleMake/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int? id)
         {
-            try
+            if(id == null)
             {
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            catch
+
+            var vehicleMakeToUpdate = await DbContext.VehicleMakes.FirstOrDefaultAsync(v => v.Id == id);
+            if(await TryUpdateModelAsync<VehicleMake>(
+                vehicleMakeToUpdate, "", v => v.Name, v => v.Abrv))
             {
-                return View();
+                try
+                {
+                    await DbContext.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                catch(DbUpdateException ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
             }
+            return View(vehicleMakeToUpdate);
         }
 
         // GET: VehicleMakeController/Delete/5

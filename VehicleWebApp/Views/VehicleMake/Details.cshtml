@@ -3,21 +3,30 @@
     ViewData["Title"] = "Vehicle make details";
 }
 
-<h1>Vehicle make details (@Model.Id)</h1>
+<h3>Vehicle make details (Id -> @Model.Id)</h3>
 
 <div class="row">
     <div class="col-md-4">
-        <h6>
-            @Html.DisplayNameFor(model => model.Id):
-            @Html.DisplayFor(model => model.Id)
-        </h6>
-        <h6>
-            @Html.DisplayNameFor(model => model.Name):
-            @Html.DisplayFor(model => model.Name)
-        </h6>
-        <h6>
-            @Html.DisplayNameFor(model => model.Abrv):
-            @Html.DisplayFor(model => model.Abrv) 
-        </h6>
+        <p>Id: <b>@Model.Id</b></p>
+        <p>Name: <b>@Model.Name</b></p>
+        <p>Abrv: <b>@Model.Abrv</b></p>
+        
+        <p>Models:</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Abrv</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

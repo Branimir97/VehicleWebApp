@@ -15,7 +15,11 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["IdSortParm"]">
+                        Id
+                    </a>
+                </th>
                 <th>Name</th>
                 <th>Abrv</th>
                 <th>Actions</th>

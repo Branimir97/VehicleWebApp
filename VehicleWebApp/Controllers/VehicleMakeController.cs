@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using VehicleWebAppService.DAL;
+using System.Linq;
 using VehicleWebAppService.Models;
+using System;
 
 namespace VehicleWebApp.Controllers
 {
@@ -16,9 +18,21 @@ namespace VehicleWebApp.Controllers
         }
 
         // GET: VehicleMake
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View(await DbContext.VehicleMakes.ToListAsync());
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            var vehicleMakes = from v in DbContext.VehicleMakes
+                               select v;
+            switch(sortOrder)
+            {
+                case "id_desc":
+                    vehicleMakes = vehicleMakes.OrderByDescending(v => v.VehicleMakeId);
+                    break;
+                default:
+                    vehicleMakes = vehicleMakes.OrderBy(v => v.VehicleMakeId);
+                    break;
+            }
+            return View(await vehicleMakes.AsNoTracking().ToListAsync());
         }
 
         // GET: VehicleMake/Details/5

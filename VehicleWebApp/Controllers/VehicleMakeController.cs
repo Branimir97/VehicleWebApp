@@ -18,14 +18,19 @@ namespace VehicleWebApp.Controllers
         }
 
         // GET: VehicleMake
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
             ViewData["NameSortParm"] = sortOrder == "name_asc" ? "name_desc" : "name_asc";
             ViewData["AbrvSortParm"] = sortOrder == "abrv_asc" ? "abrv_desc" : "abrv_asc";
+            ViewData["CurrentFilter"] = searchString;
 
             var vehicleMakes = from v in DbContext.VehicleMakes
                                select v;
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                vehicleMakes = vehicleMakes.Where(v => v.Name.Contains(searchString));
+            }
             switch(sortOrder)
             {
                 case "id_desc":

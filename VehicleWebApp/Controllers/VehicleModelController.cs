@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 using VehicleWebAppService.DAL;
 using VehicleWebAppService.Models;
@@ -20,7 +21,7 @@ namespace VehicleWebApp.Controllers
         // GET: VehicleModel
         public async Task<IActionResult> Index()
         {
-            return View(await DbContext.VehicleModels.ToListAsync());
+            return View(await DbContext.VehicleModels.Include(v => v.VehicleMake).ToListAsync());
         }
 
         // GET: VehicleModel/Details/5

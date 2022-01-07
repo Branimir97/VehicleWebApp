@@ -32,14 +32,14 @@ namespace VehicleWebApp.Controllers
         // GET: VehicleModel/Create
         public async Task<IActionResult> Create()
         {
-            ViewBag.VehicleMakes = new SelectList(DbContext.VehicleMakes, "Id", "Name");
+            ViewBag.VehicleMakes = new SelectList(DbContext.VehicleMakes, "VehicleMakeId", "Name");
             return View();
         }
 
         // POST: VehicleModelController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(VehicleModel vehicleModel)
+        public async Task<IActionResult> Create([Bind("VehicleMakeId", "Name", "Abrv")] VehicleModel vehicleModel)
         {
             try
             {

@@ -35,5 +35,11 @@
                 </tr>         
             </tbody>
         </table>
+         <a class="btn btn-outline-success" asp-controller="VehicleModel" asp-action="Edit" asp-route-id="@Model.VehicleModelId">
+            Edit
+        </a>
+        <a class="btn btn-outline-danger" asp-controller="VehicleModel" asp-action="Delete" asp-route-id="@Model.VehicleModelId">
+            Delete
+        </a>
     </div>
 </div>

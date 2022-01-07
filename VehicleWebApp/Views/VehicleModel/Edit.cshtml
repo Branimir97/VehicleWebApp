@@ -1,15 +1,15 @@
 ﻿@model VehicleWebAppService.Models.VehicleModel
 @{ 
-    ViewData["Title"] = "Vehicle model create";
+    ViewData["Title"] = "Vehicle model edit";
 }
 
-<h1>Vehicle model create</h1>
+<h3>Vehicle model edit</h3>
 
 <a asp-controller="VehicleModel" asp-action="Index">
     <i class="fas fa-long-arrow-alt-left"></i> Back to list
 </a>
 
-<form method="post" asp-controller="VehicleModel" asp-action="Create" >
+<form method="post" asp-controller="VehicleModel" asp-action="Edit" >
     <div asp-validation-summary="All"></div>
     <div class="row">
         <div class="col-md-4 form-group">

@@ -7,6 +7,16 @@
     Create new <i class="fas fa-car-alt"></i>
 </a>
 
+<form method="get asp-action="Index">
+    <div class="form-group">
+        <p>
+            Filter by Vehicle Make name: <input type="text" name="SearchString" 
+                value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-outline-info" />
+        </p>
+    </div>
+</form>
+
 @if (Model == null || Model.Count == 0)
 {
     <p class="text-center">There are currently no vehicle models in database.</p>

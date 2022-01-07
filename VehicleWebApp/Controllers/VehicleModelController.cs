@@ -18,7 +18,8 @@ namespace VehicleWebApp.Controllers
         }
 
         // GET: VehicleModel
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(
+            string sortOrder, string searchString)
         {
             ViewData["IdSortParm"] = string.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
             ViewData["VehicleMakeNameSortParm"] =
@@ -29,9 +30,15 @@ namespace VehicleWebApp.Controllers
                 sortOrder == "model_asc" ? "model_desc" : "model_asc";
             ViewData["AbrvSortParm"] =
                 sortOrder == "abrv_asc" ? "abrv_desc" : "abrv_asc";
+            ViewData["CurrentFilter"] = searchString;
 
             var vehicleModels = from v in DbContext.VehicleModels
                                 select v;
+            if(!string.IsNullOrEmpty(searchString))
+            {
+                vehicleModels = vehicleModels.Where(v => v.VehicleMake.Name.Contains(searchString)
+                                    || v.VehicleMake.Abrv.Contains(searchString));
+            }
             switch (sortOrder)
             {
                 case "id_desc":

@@ -24,7 +24,6 @@ namespace VehicleWebApp.Controllers
             ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
             ViewData["NameSortParm"] = sortOrder == "name_asc" ? "name_desc" : "name_asc";
             ViewData["AbrvSortParm"] = sortOrder == "abrv_asc" ? "abrv_desc" : "abrv_asc";
-            ViewData["CurrentFilter"] = searchString;
 
             if (searchString != null)
             {

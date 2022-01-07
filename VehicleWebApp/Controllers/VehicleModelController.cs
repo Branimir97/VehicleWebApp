@@ -19,7 +19,7 @@ namespace VehicleWebApp.Controllers
 
         // GET: VehicleModel
         public async Task<IActionResult> Index(
-            string sortOrder, string searchString)
+            string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
             ViewData["IdSortParm"] = string.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
             ViewData["VehicleMakeNameSortParm"] =
@@ -30,6 +30,15 @@ namespace VehicleWebApp.Controllers
                 sortOrder == "model_asc" ? "model_desc" : "model_asc";
             ViewData["AbrvSortParm"] =
                 sortOrder == "abrv_asc" ? "abrv_desc" : "abrv_asc";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
             ViewData["CurrentFilter"] = searchString;
 
             var vehicleModels = from v in DbContext.VehicleModels
@@ -72,7 +81,9 @@ namespace VehicleWebApp.Controllers
                     vehicleModels = vehicleModels.OrderBy(v => v.VehicleModelId);
                     break;
             }
-            return View(await vehicleModels.Include(v => v.VehicleMake).AsNoTracking().ToListAsync());
+            int pageSize = 2;
+            return View(await PaginatedList<VehicleModel>.CreateAsync(
+                vehicleModels.Include(v => v.VehicleMake).AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: VehicleModel/Details/5

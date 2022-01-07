@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using VehicleWebAppService.DAL;
 using System.Linq;
 using VehicleWebAppService.Models;
-using System;
 
 namespace VehicleWebApp.Controllers
 {
@@ -21,7 +20,7 @@ namespace VehicleWebApp.Controllers
         public async Task<IActionResult> Index(
             string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
-            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["IdSortParm"] = string.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
             ViewData["NameSortParm"] = sortOrder == "name_asc" ? "name_desc" : "name_asc";
             ViewData["AbrvSortParm"] = sortOrder == "abrv_asc" ? "abrv_desc" : "abrv_asc";
 
@@ -37,7 +36,7 @@ namespace VehicleWebApp.Controllers
 
             var vehicleMakes = from v in DbContext.VehicleMakes
                                select v;
-            if(!String.IsNullOrEmpty(searchString))
+            if(!string.IsNullOrEmpty(searchString))
             {
                 vehicleMakes = vehicleMakes.Where(v => v.Name.Contains(searchString));
             }

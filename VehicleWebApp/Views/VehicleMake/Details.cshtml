@@ -15,7 +15,7 @@
         <p>Abrv: <b>@Model.Abrv</b></p>
         
         <p>Models:</p>
-        @if (@Model.VehicleModels == null)
+        @if (@Model.VehicleModels.Count == 0)
        {
             <p class="text-center"><i>There are currently no registrated models for this vehicle make.</i></p>
         } else

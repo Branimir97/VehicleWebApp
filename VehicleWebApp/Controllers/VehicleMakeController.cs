@@ -78,7 +78,7 @@ namespace VehicleWebApp.Controllers
         {
             var vehicleMakeToUpdate = await DbContext.VehicleMakes
                                         .FirstOrDefaultAsync(v => v.VehicleMakeId == id);
-            if(await TryUpdateModelAsync<VehicleMake>(
+            if(await TryUpdateModelAsync(
                 vehicleMakeToUpdate, "", v => v.Name, v => v.Abrv))
             {
                 try

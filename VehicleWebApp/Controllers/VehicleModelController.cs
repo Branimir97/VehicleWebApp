@@ -38,7 +38,8 @@ namespace VehicleWebApp.Controllers
         // GET: VehicleModel/Create
         public async Task<IActionResult> Create()
         {
-            ViewBag.VehicleMakes = new SelectList(DbContext.VehicleMakes, "VehicleMakeId", "Abrv");
+            ViewBag.VehicleMakes = new SelectList(await DbContext.VehicleMakes.ToListAsync(), 
+                        "VehicleMakeId", "Abrv");
             return View();
         }
 
@@ -65,29 +66,41 @@ namespace VehicleWebApp.Controllers
         }
 
         // GET: VehicleModel/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            ViewBag.VehicleMakes = new SelectList(DbContext.VehicleMakes, "VehicleMakeId", "Abrv");
-            return View();
+            var vehicleModel = await DbContext.VehicleModels.FindAsync(id);
+            ViewBag.VehicleMakes = new SelectList(await DbContext.VehicleMakes.ToListAsync(),
+                        "VehicleMakeId", "Abrv");
+
+            return View(vehicleModel);
         }
 
         // POST: VehicleModel/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id)
         {
-            try
+            var vehicleModelToUpdate = await DbContext.VehicleModels
+                                        .FirstOrDefaultAsync(v => v.VehicleModelId == id);
+            if (await TryUpdateModelAsync(
+                vehicleModelToUpdate, "", v => v.VehicleMakeId, v => v.Name, v => v.Abrv))
             {
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    await DbContext.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                catch (DbUpdateException ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View(vehicleModelToUpdate);
+
         }
 
         // GET: VehicleModel/Delete/5

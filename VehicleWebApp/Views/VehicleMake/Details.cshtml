@@ -15,21 +15,30 @@
         <p>Abrv: <b>@Model.Abrv</b></p>
         
         <p>Models:</p>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Abrv</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
+        @if (@Model.VehicleModels == null)
+       {
+            <p class="text-center"><i>There are currently no registrated models for this vehicle make.</i></p>
+        } else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Abrv</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in @Model.VehicleModels)
+                   {
+                        <tr>
+                            <td>@item.VehicleModelId</td>
+                            <td>@item.Name</td>
+                            <td>@item.Abrv</td>
+                        </tr>
+                   }     
+                </tbody>
+            </table>
+        }
     </div>
 </div>

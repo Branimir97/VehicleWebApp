@@ -38,7 +38,7 @@ namespace VehicleWebApp.Controllers
         // GET: VehicleModel/Create
         public async Task<IActionResult> Create()
         {
-            ViewBag.VehicleMakes = new SelectList(DbContext.VehicleMakes, "VehicleMakeId", "Name");
+            ViewBag.VehicleMakes = new SelectList(DbContext.VehicleMakes, "VehicleMakeId", "Abrv");
             return View();
         }
 

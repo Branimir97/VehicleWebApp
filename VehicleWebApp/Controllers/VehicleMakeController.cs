@@ -99,8 +99,9 @@ namespace VehicleWebApp.Controllers
             if (id == null)
             {
                 return NotFound();
-            } 
-            var vehicleMake = await DbContext.VehicleMakes.FindAsync(id);
+            }
+            var vehicleMake = await DbContext.VehicleMakes.Include(v => v.VehicleModels).
+                                            FirstOrDefaultAsync(v => v.VehicleMakeId == id);
             return View(vehicleMake);
         }
 

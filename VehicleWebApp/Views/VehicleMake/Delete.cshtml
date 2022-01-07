@@ -15,27 +15,40 @@
         <p>Abrv: <b>@Model.Abrv</b></p>
         
         <p>Models:</p>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Abrv</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
+        @if (@Model.VehicleModels.Count == 0)
+       {
+            <p class="text-center"><i>There are currently no registrated models for this vehicle make.</i></p>
+        } else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Abrv</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in @Model.VehicleModels)
+                   {
+                        <tr>
+                            <td>@item.VehicleModelId</td>
+                            <td>@item.Name</td>
+                            <td>@item.Abrv</td>
+                            <td>
+                                <a asp-controller="VehicleModel" action="Details" asp-route-id="@item.VehicleModelId">Details</a>
+                            </td>
+                        </tr>
+                   }     
+                </tbody>
+            </table>
+        }
     </div>
 </div>
 
 <form method="post" asp-controller="VehicleMake" asp-action="Delete">
     <input type="submit" class="btn btn-danger" asp-constroller="Vehi<cleMake" asp-action="Delete" 
     value="Delete"/><br />
-    <small><i>Note: with vehicle makes also will be deleted their vehicle models if they exist.</i></small>
+    <small><i>Note: with vehicle make also will be deleted their vehicle models if they exist.</i></small>
 </form>

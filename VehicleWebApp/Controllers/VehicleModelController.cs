@@ -99,16 +99,25 @@ namespace VehicleWebApp.Controllers
         // POST: VehicleModelController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(int id)
         {
+            var vehicleModel = await DbContext.VehicleModels.FindAsync(id);
+
+            if (vehicleModel == null)
+            {
+                return NotFound();
+            }
             try
             {
-                return RedirectToAction(nameof(Index));
+                DbContext.VehicleModels.Remove(vehicleModel);
+                await DbContext.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
-            catch
+            catch (DbUpdateException ex)
             {
-                return View();
+                ModelState.AddModelError("", ex.Message);
             }
+            return View(vehicleModel);
         }
     }
 }

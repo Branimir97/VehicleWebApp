@@ -10,6 +10,7 @@ namespace VehicleWebAppService.Models
         public string Name { get; set; }
         [Required]
         public string Abrv { get; set; }
+        [Required]
         public int VehicleMakeId { get; set; }
         public virtual VehicleMake VehicleMake { get; set; }
     }

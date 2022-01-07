@@ -21,12 +21,27 @@ namespace VehicleWebApp.Controllers
         public async Task<IActionResult> Index(string sortOrder)
         {
             ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["NameSortParm"] = sortOrder == "name_asc" ? "name_desc" : "name_asc";
+            ViewData["AbrvSortParm"] = sortOrder == "abrv_asc" ? "abrv_desc" : "abrv_asc";
+
             var vehicleMakes = from v in DbContext.VehicleMakes
                                select v;
             switch(sortOrder)
             {
                 case "id_desc":
                     vehicleMakes = vehicleMakes.OrderByDescending(v => v.VehicleMakeId);
+                    break;
+                case "name_desc":
+                    vehicleMakes = vehicleMakes.OrderByDescending(v => v.Name);
+                    break;
+                case "name_asc":
+                    vehicleMakes = vehicleMakes.OrderBy(v => v.Name);
+                    break;
+                case "abrv_desc":
+                    vehicleMakes = vehicleMakes.OrderByDescending(v => v.Abrv);
+                    break;
+                case "abrv_asc":
+                    vehicleMakes = vehicleMakes.OrderBy(v => v.Abrv);
                     break;
                 default:
                     vehicleMakes = vehicleMakes.OrderBy(v => v.VehicleMakeId);

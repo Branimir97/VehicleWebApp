@@ -20,8 +20,16 @@
                         Id
                     </a>
                 </th>
-                <th>Name</th>
-                <th>Abrv</th>
+                <th>
+                     <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">
+                        Name
+                    </a>
+                </th>
+                <th>
+                     <a asp-action="Index" asp-route-sortOrder="@ViewData["AbrvSortParm"]">
+                        Abrv
+                    </a>
+                </th>
                 <th>Actions</th>
             </tr>
         </thead>

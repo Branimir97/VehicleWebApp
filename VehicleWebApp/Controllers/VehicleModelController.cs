@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 using VehicleWebAppService.DAL;
 using VehicleWebAppService.Models;
@@ -18,9 +18,54 @@ namespace VehicleWebApp.Controllers
         }
 
         // GET: VehicleModel
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View(await DbContext.VehicleModels.Include(v => v.VehicleMake).ToListAsync());
+            ViewData["IdSortParm"] = string.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["VehicleMakeNameSortParm"] =
+                sortOrder == "veh_make_asc" ? "veh_make_desc" : "veh_make_asc";
+            ViewData["VehicleMakeAbrvSortParm"] =
+                sortOrder == "veh_abrv_asc" ? "veh_abrv_desc" : "veh_abrv_asc";
+            ViewData["ModelSortParm"] =
+                sortOrder == "model_asc" ? "model_desc" : "model_asc";
+            ViewData["AbrvSortParm"] =
+                sortOrder == "abrv_asc" ? "abrv_desc" : "abrv_asc";
+
+            var vehicleModels = from v in DbContext.VehicleModels
+                                select v;
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    vehicleModels = vehicleModels.OrderByDescending(v => v.VehicleModelId);
+                    break;
+                case "veh_make_asc":
+                    vehicleModels = vehicleModels.OrderBy(v => v.VehicleMake.Name);
+                    break;
+                case "veh_make_desc":
+                    vehicleModels = vehicleModels.OrderByDescending(v => v.VehicleMake.Name);
+                    break;
+                case "veh_abrv_asc":
+                    vehicleModels = vehicleModels.OrderBy(v => v.VehicleMake.Abrv);
+                    break;
+                case "veh_abrv_desc":
+                    vehicleModels = vehicleModels.OrderByDescending(v => v.VehicleMake.Abrv);
+                    break;
+                case "model_asc":
+                    vehicleModels = vehicleModels.OrderBy(v => v.Name);
+                    break;
+                case "model_desc":
+                    vehicleModels = vehicleModels.OrderByDescending(v => v.Name);
+                    break;
+                case "abrv_asc":
+                    vehicleModels = vehicleModels.OrderBy(v => v.Abrv);
+                    break;
+                case "abrv_desc":
+                    vehicleModels = vehicleModels.OrderByDescending(v => v.Abrv);
+                    break;
+                default:
+                    vehicleModels = vehicleModels.OrderBy(v => v.VehicleModelId);
+                    break;
+            }
+            return View(await vehicleModels.Include(v => v.VehicleMake).AsNoTracking().ToListAsync());
         }
 
         // GET: VehicleModel/Details/5

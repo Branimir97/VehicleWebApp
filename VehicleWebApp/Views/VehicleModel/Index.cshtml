@@ -15,11 +15,31 @@
      <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Vehicle make name</th>
-                <th>Vehicle make abrv</th>
-                <th>Model name</th>
-                <th>Model abrv</th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["IdSortParm"]">
+                        Id
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["VehicleMakeNameSortParm"]">
+                        Vehicle make name
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["VehicleMakeAbrvSortParm"]">
+                        Vehicle make abrv
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["ModelSortParm"]">
+                        Model name
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["AbrvSortParm"]">
+                        Model abrv
+                    </a>
+                </th>
                 <th>Actions</th>
             </tr>
         </thead>

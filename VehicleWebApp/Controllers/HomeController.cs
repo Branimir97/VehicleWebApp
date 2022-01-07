@@ -14,10 +14,9 @@ namespace VehicleWebApp.Controllers
             VehicleDbContext = vehicleDbContext;
         }
 
-        public async Task<ViewResult> Index()
+        public ViewResult Index()
         {
-            var vehicleMakes = await VehicleDbContext.VehicleMakes.ToListAsync();
-            return View(vehicleMakes);
+            return View();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace VehicleWebAppService.Models
     public class VehicleModel
     {
         [Key]
-        public int Id { get; set; }
+        public int VehicleModelId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

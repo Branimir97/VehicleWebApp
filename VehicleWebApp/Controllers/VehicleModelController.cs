@@ -39,7 +39,7 @@ namespace VehicleWebApp.Controllers
         // POST: VehicleModelController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("VehicleMake", "Name", "Abrv")] VehicleModel vehicleModel)
+        public async Task<IActionResult> Create(VehicleModel vehicleModel)
         {
             try
             {

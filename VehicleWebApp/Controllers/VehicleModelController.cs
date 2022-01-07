@@ -100,7 +100,6 @@ namespace VehicleWebApp.Controllers
                 }
             }
             return View(vehicleModelToUpdate);
-
         }
 
         // GET: VehicleModel/Delete/5

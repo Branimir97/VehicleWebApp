@@ -37,7 +37,7 @@
                             <td>@item.Name</td>
                             <td>@item.Abrv</td>
                             <td>
-                                <a asp-controller="VehicleModel" action="Details">Details</a>
+                                <a asp-controller="VehicleModel" action="Details" asp-route-id="@item.VehicleModelId">Details</a>
                             </td>
                         </tr>
                    }     

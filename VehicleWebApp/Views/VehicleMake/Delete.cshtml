@@ -8,6 +8,8 @@
     <i class="fas fa-long-arrow-alt-left"></i> Back to list
 </a>
 
+<h6 class="text-danger">Are you sure that you want to delete this vehicle make with his models?</h6>
+
 <div class="row">
     <div class="col-md-4">
         <p>Id: <b>@Model.VehicleMakeId</b></p>
@@ -48,7 +50,8 @@
 </div>
 
 <form method="post" asp-controller="VehicleMake" asp-action="Delete">
-    <input type="submit" class="btn btn-danger" asp-constroller="Vehi<cleMake" asp-action="Delete" 
-    value="Delete"/><br />
-    <small><i>Note: with vehicle make also will be deleted their vehicle models if they exist.</i></small>
+    <input type="submit" class="btn btn-danger" value="Delete" />
+    <p>
+       <small><i>Note: with vehicle make also will be deleted their vehicle models if they exist.</i></small>
+    </p>
 </form>

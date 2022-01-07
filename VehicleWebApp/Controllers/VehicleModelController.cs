@@ -85,9 +85,15 @@ namespace VehicleWebApp.Controllers
         }
 
         // GET: VehicleModelController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var vehicleModel = await DbContext.VehicleModels.Include(v => v.VehicleMake)
+                                    .FirstOrDefaultAsync(v => v.VehicleModelId == id);
+            return View(vehicleModel);
         }
 
         // POST: VehicleModelController/Delete/5

@@ -28,11 +28,8 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleMake = await DbContext.VehicleMakes.Include(v => v.VehicleModels).FirstOrDefaultAsync(v => v.VehicleMakeId == id);
-            if(vehicleMake == null)
-            {
-                return NotFound();
-            }
+            var vehicleMake = await DbContext.VehicleMakes.Include(v => v.VehicleModels).
+                                FirstOrDefaultAsync(v => v.VehicleMakeId == id);
             return View(vehicleMake);
         }
 

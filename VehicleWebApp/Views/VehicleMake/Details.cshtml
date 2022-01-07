@@ -26,6 +26,7 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Abrv</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,6 +36,9 @@
                             <td>@item.VehicleModelId</td>
                             <td>@item.Name</td>
                             <td>@item.Abrv</td>
+                            <td>
+                                <a asp-controller="VehicleModel" action="Details">Details</a>
+                            </td>
                         </tr>
                    }     
                 </tbody>

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 using VehicleWebAppService.DAL;
 using VehicleWebAppService.Models;
@@ -25,9 +24,15 @@ namespace VehicleWebApp.Controllers
         }
 
         // GET: VehicleModel/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
-            return View();
+            if(id == null)
+            {
+                return NotFound();
+            }
+            var vehicleModel = await DbContext.VehicleModels.Include(v => v.VehicleMake)
+                                    .FirstOrDefaultAsync(v => v.VehicleModelId == id);
+            return View(vehicleModel);
         }
 
         // GET: VehicleModel/Create

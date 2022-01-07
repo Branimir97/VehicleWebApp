@@ -76,7 +76,8 @@ namespace VehicleWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id)
         {
-            var vehicleMakeToUpdate = await DbContext.VehicleMakes.FirstOrDefaultAsync(v => v.VehicleMakeId == id);
+            var vehicleMakeToUpdate = await DbContext.VehicleMakes
+                                        .FirstOrDefaultAsync(v => v.VehicleMakeId == id);
             if(await TryUpdateModelAsync<VehicleMake>(
                 vehicleMakeToUpdate, "", v => v.Name, v => v.Abrv))
             {

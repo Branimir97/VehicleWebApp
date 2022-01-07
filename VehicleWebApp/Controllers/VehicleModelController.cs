@@ -45,7 +45,8 @@ namespace VehicleWebApp.Controllers
         // POST: VehicleModelController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("VehicleMakeId", "Name", "Abrv")] VehicleModel vehicleModel)
+        public async Task<IActionResult> Create([Bind("VehicleMakeId", "Name", "Abrv")] 
+                            VehicleModel vehicleModel)
         {
             try
             {
@@ -63,13 +64,18 @@ namespace VehicleWebApp.Controllers
             return View(vehicleModel);
         }
 
-        // GET: VehicleModelController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: VehicleModel/Edit/5
+        public ActionResult Edit(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            ViewBag.VehicleMakes = new SelectList(DbContext.VehicleMakes, "VehicleMakeId", "Abrv");
             return View();
         }
 
-        // POST: VehicleModelController/Edit/5
+        // POST: VehicleModel/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -84,7 +90,7 @@ namespace VehicleWebApp.Controllers
             }
         }
 
-        // GET: VehicleModelController/Delete/5
+        // GET: VehicleModel/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -96,7 +102,7 @@ namespace VehicleWebApp.Controllers
             return View(vehicleModel);
         }
 
-        // POST: VehicleModelController/Delete/5
+        // POST: VehicleModel/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)

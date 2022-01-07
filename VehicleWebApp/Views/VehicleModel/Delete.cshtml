@@ -31,7 +31,11 @@
                     <td>@Model.VehicleMake.Name</td>
                     <td>@Model.VehicleMake.Abrv</td>
                     <td>
-                        <a asp-controller="VehicleMake" action="Details" asp-route-id="@Model.VehicleMakeId">Details</a>
+                        <a asp-controller="VehicleMake" 
+                           asp-action="Details" 
+                           asp-route-id="@Model.VehicleMakeId">
+                           Details
+                       </a>
                     </td>
                 </tr>         
             </tbody>

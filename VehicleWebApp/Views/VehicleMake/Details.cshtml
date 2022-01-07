@@ -17,7 +17,9 @@
         <p>Vehicle models:</p>
         @if (@Model.VehicleModels.Count == 0)
        {
-            <p class="text-center"><i>There are currently no registrated models for this vehicle make.</i></p>
+            <p class="text-center">
+                <i> There are currently no registrated models for this vehicle make.</i>
+            </p>
         } else
         {
             <table class="table">
@@ -37,17 +39,23 @@
                             <td>@item.Name</td>
                             <td>@item.Abrv</td>
                             <td>
-                                <a asp-controller="VehicleModel" action="Details" asp-route-id="@item.VehicleModelId">Details</a>
+                                <a asp-controller="VehicleModel" 
+                                   asp-action="Details" 
+                                   asp-route-id="@item.VehicleModelId">
+                                   Details
+                               </a>
                             </td>
                         </tr>
                    }     
                 </tbody>
             </table>
         }
-        <a class="btn btn-outline-success" asp-controller="VehicleMake" asp-action="Edit" asp-route-id="@Model.VehicleMakeId">
+        <a class="btn btn-outline-success" asp-controller="VehicleMake" 
+                asp-action="Edit" asp-route-id="@Model.VehicleMakeId">
             Edit
         </a>
-        <a class="btn btn-outline-danger" asp-controller="VehicleMake" asp-action="Delete" asp-route-id="@Model.VehicleMakeId">
+        <a class="btn btn-outline-danger" asp-controller="VehicleMake" 
+                asp-action="Delete" asp-route-id="@Model.VehicleMakeId">
             Delete
         </a>
     </div>

@@ -30,15 +30,21 @@
                     <td>@Model.VehicleMake.Name</td>
                     <td>@Model.VehicleMake.Abrv</td>
                     <td>
-                        <a asp-controller="VehicleMake" action="Details" asp-route-id="@Model.VehicleMakeId">Details</a>
+                        <a asp-controller="VehicleMake" 
+                           asp-action="Details" 
+                           asp-route-id="@Model.VehicleMakeId">
+                           Details
+                       </a>
                     </td>
                 </tr>         
             </tbody>
         </table>
-         <a class="btn btn-outline-success" asp-controller="VehicleModel" asp-action="Edit" asp-route-id="@Model.VehicleModelId">
+         <a class="btn btn-outline-success" asp-controller="VehicleModel" 
+                asp-action="Edit" asp-route-id="@Model.VehicleModelId">
             Edit
         </a>
-        <a class="btn btn-outline-danger" asp-controller="VehicleModel" asp-action="Delete" asp-route-id="@Model.VehicleModelId">
+        <a class="btn btn-outline-danger" asp-controller="VehicleModel" 
+                asp-action="Delete" asp-route-id="@Model.VehicleModelId">
             Delete
         </a>
     </div>

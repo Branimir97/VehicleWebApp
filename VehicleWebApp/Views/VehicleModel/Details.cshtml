@@ -1,0 +1,51 @@
+﻿@model VehicleWebAppService.Models.VehicleModel
+@{ 
+    ViewData["Title"] = "Vehicle model details";
+}
+
+<h3>Vehicle model details</h3>
+<a asp-controller="VehicleModel" asp-action="Index">
+    <i class="fas fa-long-arrow-alt-left"></i> Back to list
+</a>
+
+<div class="row">
+    <div class="col-md-4">
+        <p>Id: <b>@Model.VehicleModelId</b></p>
+        <p>Name: <b>@Model.Name</b></p>
+        <p>Abrv: <b>@Model.Abrv</b></p>
+        
+        <p>Vehicle make:</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Abrv</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.VehicleMakeId</td>
+                    <td>@Model.VehicleMake.Name</td>
+                    <td>@Model.VehicleMake.Abrv</td>
+                    <td>
+                        <a asp-controller="VehicleMake" 
+                           asp-action="Details" 
+                           asp-route-id="@Model.VehicleMakeId">
+                           Details
+                       </a>
+                    </td>
+                </tr>         
+            </tbody>
+        </table>
+         <a class="btn btn-outline-success" asp-controller="VehicleModel" 
+                asp-action="Edit" asp-route-id="@Model.VehicleModelId">
+            Edit
+        </a>
+        <a class="btn btn-outline-danger" asp-controller="VehicleModel" 
+                asp-action="Delete" asp-route-id="@Model.VehicleModelId">
+            Delete
+        </a>
+    </div>
+</div>

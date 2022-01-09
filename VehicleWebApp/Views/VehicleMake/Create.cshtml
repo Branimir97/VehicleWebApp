@@ -1,0 +1,26 @@
+﻿@model VehicleWebAppService.Models.VehicleMake
+@{ 
+    ViewData["Title"] = "Vehicle make create";
+}
+
+<h3>Vehicle make create</h3>
+<a asp-controller="VehicleMake" asp-action="Index">
+    <i class="fas fa-long-arrow-alt-left"></i> Back to list
+</a>
+
+<form method="post" asp-controller="VehicleMake" asp-action="Create" >
+    <div asp-validation-summary="All"></div>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <b>Name:</b>
+            <input class="form-control" asp-for="@Model.Name" placeholder="eg. BMW"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <b>Abrv:</b>
+            <input class="form-control" asp-for="@Model.Abrv" placeholder="eg. 530xd F10"/>
+        </div>
+    </div>
+    <input class="btn btn-info" type="submit" value="Create" />
+</form>

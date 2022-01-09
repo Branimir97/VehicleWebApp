@@ -1,0 +1,62 @@
+﻿@model VehicleWebAppService.Models.VehicleMake
+@{ 
+    ViewData["Title"] = "Vehicle make details";
+}
+
+<h3>Vehicle make details</h3>
+<a asp-controller="VehicleMake" asp-action="Index">
+    <i class="fas fa-long-arrow-alt-left"></i> Back to list
+</a>
+
+<div class="row">
+    <div class="col-md-4">
+        <p>Id: <b>@Model.VehicleMakeId</b></p>
+        <p>Name: <b>@Model.Name</b></p>
+        <p>Abrv: <b>@Model.Abrv</b></p>
+        
+        <p>Vehicle models:</p>
+        @if (@Model.VehicleModels.Count == 0)
+       {
+            <p class="text-center">
+                <i> There are currently no registrated models for this vehicle make.</i>
+            </p>
+        } else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Abrv</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in @Model.VehicleModels)
+                   {
+                        <tr>
+                            <td>@item.VehicleModelId</td>
+                            <td>@item.Name</td>
+                            <td>@item.Abrv</td>
+                            <td>
+                                <a asp-controller="VehicleModel" 
+                                   asp-action="Details" 
+                                   asp-route-id="@item.VehicleModelId">
+                                   Details
+                               </a>
+                            </td>
+                        </tr>
+                   }     
+                </tbody>
+            </table>
+        }
+        <a class="btn btn-outline-success" asp-controller="VehicleMake" 
+                asp-action="Edit" asp-route-id="@Model.VehicleMakeId">
+            Edit
+        </a>
+        <a class="btn btn-outline-danger" asp-controller="VehicleMake" 
+                asp-action="Delete" asp-route-id="@Model.VehicleMakeId">
+            Delete
+        </a>
+    </div>
+</div>

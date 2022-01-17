@@ -46,7 +46,7 @@ namespace VehicleWebAppService
                     vehicleMakes = vehicleMakes.OrderBy(v => v.VehicleMakeId);
                     break;
             }
-            int pageSize = 15;
+            int pageSize = 10;
             return await PaginatedList<VehicleMake>.CreateAsync(vehicleMakes.AsNoTracking(),
                         pageNumber ?? 1, pageSize);
         }

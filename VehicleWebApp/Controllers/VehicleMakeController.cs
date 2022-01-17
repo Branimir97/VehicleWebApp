@@ -8,11 +8,11 @@ namespace VehicleWebApp.Controllers
 {
     public class VehicleMakeController : Controller
     {
-        private VehicleMakeService VehicleService;
+        private VehicleMakeService VehicleMakeService;
 
-        public VehicleMakeController(VehicleMakeService vehicleService)
+        public VehicleMakeController(VehicleMakeService vehicleMakeService)
         {
-            VehicleService = vehicleService;
+            VehicleMakeService = vehicleMakeService;
         }
     
         // GET: VehicleMake
@@ -33,7 +33,7 @@ namespace VehicleWebApp.Controllers
             }
             ViewData["CurrentFilter"] = searchString;
 
-            var vehicleMakes = await VehicleService.GetVehicleMakes(
+            var vehicleMakes = await VehicleMakeService.GetVehicleMakesBy(
                     sortOrder, searchString, pageNumber);
             return View(vehicleMakes);
         }
@@ -45,7 +45,7 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleMake = await VehicleService.GetVehicleMake(id);
+            var vehicleMake = await VehicleMakeService.GetVehicleMake(id);
             return View(vehicleMake);
         }
 
@@ -64,7 +64,7 @@ namespace VehicleWebApp.Controllers
             {
                 if(ModelState.IsValid)
                 {
-                    await VehicleService.AddVehicleMake(vehicleMake);
+                    await VehicleMakeService.AddVehicleMake(vehicleMake);
                     return RedirectToAction("Index");
                 }
             }
@@ -82,7 +82,7 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleMake = await VehicleService.GetVehicleMake(id);
+            var vehicleMake = await VehicleMakeService.GetVehicleMake(id);
             return View(vehicleMake);
         }
 
@@ -91,13 +91,13 @@ namespace VehicleWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id)
         {
-            var vehicleMakeToUpdate = await VehicleService.GetVehicleMake(id);
+            var vehicleMakeToUpdate = await VehicleMakeService.GetVehicleMake(id);
             if (await TryUpdateModelAsync(
                 vehicleMakeToUpdate, "", v => v.Name, v => v.Abrv))
             {
                 try
                 {
-                    await VehicleService.UpdateVehicleMake();
+                    await VehicleMakeService.UpdateVehicleMake();
                     return RedirectToAction("Index");
                 }
                 catch(DbUpdateException ex)
@@ -115,7 +115,7 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleMake = await VehicleService.GetVehicleMake(id);
+            var vehicleMake = await VehicleMakeService.GetVehicleMake(id);
             return View(vehicleMake);
         }
 
@@ -124,7 +124,7 @@ namespace VehicleWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            var vehicleMake = await VehicleService.GetVehicleMake(id);
+            var vehicleMake = await VehicleMakeService.GetVehicleMake(id);
 
             if(vehicleMake == null)
             {
@@ -132,7 +132,7 @@ namespace VehicleWebApp.Controllers
             }
             try
             {
-                await VehicleService.DeleteVehicleMake(id);
+                await VehicleMakeService.DeleteVehicleMake(id);
                 return RedirectToAction("Index");
             }
             catch (DbUpdateException ex)

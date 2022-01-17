@@ -15,7 +15,7 @@ namespace VehicleWebAppService
             DbContext = dbContext;  
         }
 
-        public async Task<PaginatedList<VehicleMake>> GetVehicleMakes(
+        public async Task<PaginatedList<VehicleMake>> GetVehicleMakesBy(
             string sortOrder, string searchString, int? pageNumber)
         {
             var vehicleMakes = from v in DbContext.VehicleMakes

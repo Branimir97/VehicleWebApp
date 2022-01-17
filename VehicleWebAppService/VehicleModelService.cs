@@ -23,8 +23,8 @@ namespace VehicleWebAppService
                                select v;
             if (!string.IsNullOrEmpty(searchString))
             {
-                vehicleModels = vehicleModels.Where(v => v.VehicleMake.Name.Contains(searchString)
-                                    || v.VehicleMake.Abrv.Contains(searchString));
+                vehicleModels = vehicleModels.Where(v => v.VehicleMake.Name.Contains(
+                        searchString) || v.VehicleMake.Abrv.Contains(searchString));
             }
             switch (sortOrder)
             {
@@ -61,7 +61,8 @@ namespace VehicleWebAppService
             }
             int pageSize = 10;
             return await PaginatedList<VehicleModel>.CreateAsync(
-                vehicleModels.Include(v => v.VehicleMake).AsNoTracking(), pageNumber ?? 1, pageSize);
+                vehicleModels.Include(v => v.VehicleMake).AsNoTracking(), 
+                        pageNumber ?? 1, pageSize);
         }
 
         public async Task<VehicleModel> GetVehicleModel(int? id)
@@ -74,6 +75,24 @@ namespace VehicleWebAppService
         public async Task<List<VehicleModel>> GetAllVehicleModels()
         {
             return await DbContext.VehicleModels.ToListAsync();
+        }
+
+        public async Task AddVehicleModel(VehicleModel vehicleModel)
+        {
+            await DbContext.AddAsync(vehicleModel);
+            await DbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateVehicleModel()
+        {
+            await DbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteVehicleModel(int? id)
+        {
+            var vehicleModel = await GetVehicleModel(id);
+            DbContext.VehicleModels.Remove(vehicleModel);
+            await DbContext.SaveChangesAsync();
         }
     }
 }

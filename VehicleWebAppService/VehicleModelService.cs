@@ -72,9 +72,9 @@ namespace VehicleWebAppService
             return vehicleModel;
         }
 
-        public async Task<List<VehicleModel>> GetAllVehicleModels()
+        public async Task<List<VehicleMake>> GetAllVehicleMakes()
         {
-            return await DbContext.VehicleModels.ToListAsync();
+            return await DbContext.VehicleMakes.ToListAsync();
         }
 
         public async Task AddVehicleModel(VehicleModel vehicleModel)

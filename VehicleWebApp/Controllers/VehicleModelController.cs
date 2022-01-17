@@ -60,7 +60,7 @@ namespace VehicleWebApp.Controllers
         public async Task<IActionResult> Create()
         {
             ViewBag.VehicleMakes = new SelectList(await VehicleModelService.
-                    GetAllVehicleModels(), "VehicleMakeId", "Abrv");
+                    GetAllVehicleMakes(), "VehicleMakeId", "Abrv");
             return View();
         }
 
@@ -93,8 +93,8 @@ namespace VehicleWebApp.Controllers
                 return NotFound();
             }
             var vehicleModel = await VehicleModelService.GetVehicleModel(id);
-            ViewBag.VehicleMakes = new SelectList(await VehicleModelService.GetAllVehicleModels(),
-                        "VehicleMakeId", "Abrv");
+            ViewBag.VehicleMakes = new SelectList(await VehicleModelService.
+                    GetAllVehicleMakes(), "VehicleMakeId", "Abrv");
 
             return View(vehicleModel);
         }

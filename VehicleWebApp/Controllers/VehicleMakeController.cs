@@ -8,7 +8,7 @@ namespace VehicleWebApp.Controllers
 {
     public class VehicleMakeController : Controller
     {
-        private readonly VehicleService VehicleService;
+        private VehicleService VehicleService;
 
         public VehicleMakeController(VehicleService vehicleService)
         {
@@ -33,7 +33,7 @@ namespace VehicleWebApp.Controllers
             }
             ViewData["CurrentFilter"] = searchString;
 
-            var vehicleMakes = VehicleService.GetVehicleMakes(
+            var vehicleMakes = await VehicleService.GetVehicleMakes(
                     sortOrder, currentFilter, searchString, pageNumber);
             return View(vehicleMakes);
         }

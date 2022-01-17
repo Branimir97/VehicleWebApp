@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VehicleWebAppService;
 using VehicleWebAppService.DAL;
 
 namespace VehicleWebApp
@@ -28,6 +29,7 @@ namespace VehicleWebApp
             services.AddControllersWithViews();
             services.AddDbContext<VehicleDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddScoped<VehicleService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

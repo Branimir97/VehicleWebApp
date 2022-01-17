@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 using VehicleWebAppService;
 using VehicleWebAppService.Models;
@@ -41,50 +40,9 @@ namespace VehicleWebApp.Controllers
             }
             ViewData["CurrentFilter"] = searchString;
 
-            var vehicleModels = from v in DbContext.VehicleModels
-                                select v;
-            if(!string.IsNullOrEmpty(searchString))
-            {
-                vehicleModels = vehicleModels.Where(v => v.VehicleMake.Name.Contains(searchString)
-                                    || v.VehicleMake.Abrv.Contains(searchString));
+            var vehicleModels = await VehicleModelService.GetVehicleModels(sortOrder, searchString, pageNumber);
+            return View(vehicleModels);
             }
-            switch (sortOrder)
-            {
-                case "id_desc":
-                    vehicleModels = vehicleModels.OrderByDescending(v => v.VehicleModelId);
-                    break;
-                case "veh_make_asc":
-                    vehicleModels = vehicleModels.OrderBy(v => v.VehicleMake.Name);
-                    break;
-                case "veh_make_desc":
-                    vehicleModels = vehicleModels.OrderByDescending(v => v.VehicleMake.Name);
-                    break;
-                case "veh_abrv_asc":
-                    vehicleModels = vehicleModels.OrderBy(v => v.VehicleMake.Abrv);
-                    break;
-                case "veh_abrv_desc":
-                    vehicleModels = vehicleModels.OrderByDescending(v => v.VehicleMake.Abrv);
-                    break;
-                case "model_asc":
-                    vehicleModels = vehicleModels.OrderBy(v => v.Name);
-                    break;
-                case "model_desc":
-                    vehicleModels = vehicleModels.OrderByDescending(v => v.Name);
-                    break;
-                case "abrv_asc":
-                    vehicleModels = vehicleModels.OrderBy(v => v.Abrv);
-                    break;
-                case "abrv_desc":
-                    vehicleModels = vehicleModels.OrderByDescending(v => v.Abrv);
-                    break;
-                default:
-                    vehicleModels = vehicleModels.OrderBy(v => v.VehicleModelId);
-                    break;
-            }
-            int pageSize = 2;
-            return View(await PaginatedList<VehicleModel>.CreateAsync(
-                vehicleModels.Include(v => v.VehicleMake).AsNoTracking(), pageNumber ?? 1, pageSize));
-        }
 
         // GET: VehicleModel/Details/5
         public async Task<IActionResult> Details(int? id)

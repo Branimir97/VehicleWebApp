@@ -3,18 +3,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using VehicleWebAppService.DAL;
 using VehicleWebAppService.Models;
 
 namespace VehicleWebApp.Controllers
 {
     public class VehicleModelController : Controller
     {
-        private readonly VehicleDbContext DbContext;
+        private VehicleModelService VehicleModelService;
 
-        public VehicleModelController(VehicleDbContext dbContext)
+        public VehicleModelController(VehicleModelService vehicleModelService)
         {
-            DbContext = dbContext;
+            VehicleModelService = vehicleModelService;
         }
 
         // GET: VehicleModel

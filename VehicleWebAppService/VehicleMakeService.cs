@@ -3,21 +3,20 @@ using System.Threading.Tasks;
 using VehicleWebAppService.DAL;
 using VehicleWebAppService.Models;
 using System.Linq;
-using VehicleWebApp;
 
 namespace VehicleWebAppService
 {
-    public class VehicleService
+    public class VehicleMakeService
     {
         private readonly VehicleDbContext DbContext;
 
-        public VehicleService(VehicleDbContext dbContext)
+        public VehicleMakeService(VehicleDbContext dbContext)
         {
             DbContext = dbContext;  
         }
 
         public async Task<PaginatedList<VehicleMake>> GetVehicleMakes(
-            string sortOrder, string currentFilter, string searchString, int? pageNumber)
+            string sortOrder, string searchString, int? pageNumber)
         {
             var vehicleMakes = from v in DbContext.VehicleMakes
                                select v;
@@ -47,7 +46,7 @@ namespace VehicleWebAppService
                     vehicleMakes = vehicleMakes.OrderBy(v => v.VehicleMakeId);
                     break;
             }
-            int pageSize = 5;
+            int pageSize = 15;
             return await PaginatedList<VehicleMake>.CreateAsync(vehicleMakes.AsNoTracking(),
                         pageNumber ?? 1, pageSize);
         }
@@ -70,7 +69,6 @@ namespace VehicleWebAppService
             await DbContext.SaveChangesAsync();
         }
         
-
         public async Task DeleteVehicleMake(int? id)
         {
             var vehicleMake = await GetVehicleMake(id);

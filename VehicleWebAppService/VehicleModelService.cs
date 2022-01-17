@@ -3,6 +3,7 @@ using VehicleWebAppService.DAL;
 using VehicleWebAppService.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace VehicleWebAppService
 {
@@ -15,7 +16,7 @@ namespace VehicleWebAppService
             DbContext = dbContext;
         }
 
-        public async Task<PaginatedList<VehicleModel>> GetVehicleModels(
+        public async Task<PaginatedList<VehicleModel>> GetVehicleModelsBy(
             string sortOrder, string searchString, int? pageNumber)
         {
             var vehicleModels = from v in DbContext.VehicleModels
@@ -58,23 +59,21 @@ namespace VehicleWebAppService
                     vehicleModels = vehicleModels.OrderBy(v => v.VehicleModelId);
                     break;
             }
-            int pageSize = 2;
+            int pageSize = 10;
             return await PaginatedList<VehicleModel>.CreateAsync(
                 vehicleModels.Include(v => v.VehicleMake).AsNoTracking(), pageNumber ?? 1, pageSize);
-
         }
 
         public async Task<VehicleModel> GetVehicleModel(int? id)
         {
-            var vehicleModel = await DbContext.VehicleModels.Include(v => v.VehicleModels).
-                                FirstOrDefaultAsync(v => v.VehicleMakeId == id);
-            return vehicleMake;
+            var vehicleModel = await DbContext.VehicleModels.Include(v => v.VehicleMake)
+                                    .FirstOrDefaultAsync(v => v.VehicleModelId == id);
+            return vehicleModel;
         }
 
-        public async Task AddVehicleMake(VehicleMake vehicleMake)
+        public async Task<List<VehicleModel>> GetAllVehicleModels()
         {
-            await DbContext.AddAsync(vehicleMake);
-            await DbContext.SaveChangesAsync();
+            return await DbContext.VehicleModels.ToListAsync();
         }
     }
 }

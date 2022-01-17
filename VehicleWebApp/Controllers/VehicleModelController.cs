@@ -40,7 +40,7 @@ namespace VehicleWebApp.Controllers
             }
             ViewData["CurrentFilter"] = searchString;
 
-            var vehicleModels = await VehicleModelService.GetVehicleModels(sortOrder, searchString, pageNumber);
+            var vehicleModels = await VehicleModelService.GetVehicleModelsBy(sortOrder, searchString, pageNumber);
             return View(vehicleModels);
             }
 
@@ -51,15 +51,14 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleModel = await DbContext.VehicleModels.Include(v => v.VehicleMake)
-                                    .FirstOrDefaultAsync(v => v.VehicleModelId == id);
+            var vehicleModel = await VehicleModelService.GetVehicleModel(id);
             return View(vehicleModel);
         }
 
         // GET: VehicleModel/Create
         public async Task<IActionResult> Create()
         {
-            ViewBag.VehicleMakes = new SelectList(await DbContext.VehicleMakes.ToListAsync(), 
+            ViewBag.VehicleMakes = new SelectList(await VehicleModelService.GetAllVehicleModels(), 
                         "VehicleMakeId", "Abrv");
             return View();
         }

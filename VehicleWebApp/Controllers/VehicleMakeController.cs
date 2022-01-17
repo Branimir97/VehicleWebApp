@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using System.Linq;
 using VehicleWebAppService.Models;
 using VehicleWebAppService;
 
@@ -34,36 +33,9 @@ namespace VehicleWebApp.Controllers
             }
             ViewData["CurrentFilter"] = searchString;
 
-            var vehicleMakes = from v in DbContext.VehicleMakes
-                               select v;
-            if(!string.IsNullOrEmpty(searchString))
-            {
-                vehicleMakes = vehicleMakes.Where(v => v.Name.Contains(searchString));
-            }
-            switch(sortOrder)
-            {
-                case "id_desc":
-                    vehicleMakes = vehicleMakes.OrderByDescending(v => v.VehicleMakeId);
-                    break;
-                case "name_desc":
-                    vehicleMakes = vehicleMakes.OrderByDescending(v => v.Name);
-                    break;
-                case "name_asc":
-                    vehicleMakes = vehicleMakes.OrderBy(v => v.Name);
-                    break;
-                case "abrv_desc":
-                    vehicleMakes = vehicleMakes.OrderByDescending(v => v.Abrv);
-                    break;
-                case "abrv_asc":
-                    vehicleMakes = vehicleMakes.OrderBy(v => v.Abrv);
-                    break;
-                default:
-                    vehicleMakes = vehicleMakes.OrderBy(v => v.VehicleMakeId);
-                    break;
-            }
-            int pageSize = 5;
-            return View(await PaginatedList<VehicleMake>.CreateAsync(vehicleMakes.AsNoTracking(), 
-                        pageNumber ?? 1, pageSize));
+            var vehicleMakes = VehicleService.GetVehicleMakes(
+                    sortOrder, currentFilter, searchString, pageNumber);
+            return View(vehicleMakes);
         }
 
         // GET: VehicleMake/Details/5
@@ -73,7 +45,7 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleMake = await VehicleService.GetVehicleMakeDetails(id);
+            var vehicleMake = await VehicleService.GetVehicleMake(id);
             return View(vehicleMake);
         }
 
@@ -92,8 +64,7 @@ namespace VehicleWebApp.Controllers
             {
                 if(ModelState.IsValid)
                 {
-                    await DbContext.AddAsync(vehicleMake);
-                    await DbContext.SaveChangesAsync();
+                    await VehicleService.AddVehicleMake(vehicleMake);
                     return RedirectToAction("Index");
                 }
             }
@@ -111,7 +82,7 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleMake = await DbContext.VehicleMakes.FindAsync(id);
+            var vehicleMake = await VehicleService.GetVehicleMake(id);
             return View(vehicleMake);
         }
 

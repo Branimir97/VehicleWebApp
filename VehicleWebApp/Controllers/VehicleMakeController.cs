@@ -1,21 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using VehicleWebAppService.DAL;
 using System.Linq;
 using VehicleWebAppService.Models;
+using VehicleWebAppService;
 
 namespace VehicleWebApp.Controllers
 {
     public class VehicleMakeController : Controller
     {
-        private readonly VehicleDbContext DbContext;
+        private readonly VehicleService VehicleService;
 
-        public VehicleMakeController(VehicleDbContext dbContext)
+        public VehicleMakeController(VehicleService vehicleService)
         {
-            DbContext = dbContext;
+            VehicleService = vehicleService;
         }
-
+    
         // GET: VehicleMake
         public async Task<IActionResult> Index(
             string sortOrder, string currentFilter, string searchString, int? pageNumber)
@@ -73,13 +73,12 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleMake = await DbContext.VehicleMakes.Include(v => v.VehicleModels).
-                                FirstOrDefaultAsync(v => v.VehicleMakeId == id);
+            var vehicleMake = await VehicleService.GetVehicleMakeDetails(id);
             return View(vehicleMake);
         }
 
         // GET: VehicleMake/Create
-        public ActionResult Create()
+        public ViewResult Create()
         {
             return View();
         }

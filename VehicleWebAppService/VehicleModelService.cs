@@ -26,39 +26,19 @@ namespace VehicleWebAppService
                 vehicleModels = vehicleModels.Where(v => v.VehicleMake.Name.Contains(
                         searchString) || v.VehicleMake.Abrv.Contains(searchString));
             }
-            switch (sortOrder)
+            vehicleModels = sortOrder switch
             {
-                case "id_desc":
-                    vehicleModels = vehicleModels.OrderByDescending(v => v.VehicleModelId);
-                    break;
-                case "veh_make_asc":
-                    vehicleModels = vehicleModels.OrderBy(v => v.VehicleMake.Name);
-                    break;
-                case "veh_make_desc":
-                    vehicleModels = vehicleModels.OrderByDescending(v => v.VehicleMake.Name);
-                    break;
-                case "veh_abrv_asc":
-                    vehicleModels = vehicleModels.OrderBy(v => v.VehicleMake.Abrv);
-                    break;
-                case "veh_abrv_desc":
-                    vehicleModels = vehicleModels.OrderByDescending(v => v.VehicleMake.Abrv);
-                    break;
-                case "model_asc":
-                    vehicleModels = vehicleModels.OrderBy(v => v.Name);
-                    break;
-                case "model_desc":
-                    vehicleModels = vehicleModels.OrderByDescending(v => v.Name);
-                    break;
-                case "abrv_asc":
-                    vehicleModels = vehicleModels.OrderBy(v => v.Abrv);
-                    break;
-                case "abrv_desc":
-                    vehicleModels = vehicleModels.OrderByDescending(v => v.Abrv);
-                    break;
-                default:
-                    vehicleModels = vehicleModels.OrderBy(v => v.VehicleModelId);
-                    break;
-            }
+                "id_desc" => vehicleModels.OrderByDescending(v => v.VehicleModelId),
+                "veh_make_asc" => vehicleModels.OrderBy(v => v.VehicleMake.Name),
+                "veh_make_desc" => vehicleModels.OrderByDescending(v => v.VehicleMake.Name),
+                "veh_abrv_asc" => vehicleModels.OrderBy(v => v.VehicleMake.Abrv),
+                "veh_abrv_desc" => vehicleModels.OrderByDescending(v => v.VehicleMake.Abrv),
+                "model_asc" => vehicleModels.OrderBy(v => v.Name),
+                "model_desc" => vehicleModels.OrderByDescending(v => v.Name),
+                "abrv_asc" => vehicleModels.OrderBy(v => v.Abrv),
+                "abrv_desc" => vehicleModels.OrderByDescending(v => v.Abrv),
+                _ => vehicleModels.OrderBy(v => v.VehicleModelId),
+            };
             int pageSize = 10;
             return await PaginatedList<VehicleModel>.CreateAsync(
                 vehicleModels.Include(v => v.VehicleMake).AsNoTracking(), 

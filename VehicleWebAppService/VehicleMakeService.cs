@@ -25,27 +25,15 @@ namespace VehicleWebAppService
                 vehicleMakes = vehicleMakes.Where(v => v.Name.Contains(searchString));
             }
 
-            switch (sortOrder)
+            vehicleMakes = sortOrder switch
             {
-                case "id_desc":
-                    vehicleMakes = vehicleMakes.OrderByDescending(v => v.VehicleMakeId);
-                    break;
-                case "name_desc":
-                    vehicleMakes = vehicleMakes.OrderByDescending(v => v.Name);
-                    break;
-                case "name_asc":
-                    vehicleMakes = vehicleMakes.OrderBy(v => v.Name);
-                    break;
-                case "abrv_desc":
-                    vehicleMakes = vehicleMakes.OrderByDescending(v => v.Abrv);
-                    break;
-                case "abrv_asc":
-                    vehicleMakes = vehicleMakes.OrderBy(v => v.Abrv);
-                    break;
-                default:
-                    vehicleMakes = vehicleMakes.OrderBy(v => v.VehicleMakeId);
-                    break;
-            }
+                "id_desc" => vehicleMakes.OrderByDescending(v => v.VehicleMakeId),
+                "name_desc" => vehicleMakes.OrderByDescending(v => v.Name),
+                "name_asc" => vehicleMakes.OrderBy(v => v.Name),
+                "abrv_desc" => vehicleMakes.OrderByDescending(v => v.Abrv),
+                "abrv_asc" => vehicleMakes.OrderBy(v => v.Abrv),
+                _ => vehicleMakes.OrderBy(v => v.VehicleMakeId),
+            };
             int pageSize = 10;
             return await PaginatedList<VehicleMake>.CreateAsync(vehicleMakes.AsNoTracking(),
                         pageNumber ?? 1, pageSize);

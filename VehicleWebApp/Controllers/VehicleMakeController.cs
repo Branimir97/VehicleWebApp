@@ -9,7 +9,7 @@ namespace VehicleWebApp.Controllers
 {
     public class VehicleMakeController : Controller
     {
-        private VehicleMakeService VehicleMakeService;
+        private readonly VehicleMakeService VehicleMakeService;
 
         public VehicleMakeController(VehicleMakeService vehicleMakeService)
         {

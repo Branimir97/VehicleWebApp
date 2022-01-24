@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using VehicleWebApp.ViewModels;
 using VehicleWebAppService;
 using VehicleWebAppService.Models;
 
@@ -52,8 +53,11 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleModel = await VehicleModelService.GetVehicleModel(id);
-            return View(vehicleModel);
+            VehicleModelDetailsViewModel vehicleModelViewModel = new()
+            {
+                VehicleModel = await VehicleModelService.GetVehicleModel(id)
+            };
+            return View(vehicleModelViewModel);
         }
 
         // GET: VehicleModel/Create

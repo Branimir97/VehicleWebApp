@@ -122,8 +122,11 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleMake = await VehicleMakeService.GetVehicleMake(id);
-            return View(vehicleMake);
+            VehicleMakeDetailsViewModel vehicleMakeDetailsViewModel = new()
+            {
+                VehicleMake = await VehicleMakeService.GetVehicleMake(id)
+            };
+            return View(vehicleMakeDetailsViewModel);
         }
 
         // POST: VehicleMake/Delete/5

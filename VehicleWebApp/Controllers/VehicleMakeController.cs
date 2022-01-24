@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using VehicleWebAppService.Models;
 using VehicleWebAppService;
+using VehicleWebApp.ViewModels;
 
 namespace VehicleWebApp.Controllers
 {
@@ -45,8 +46,12 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleMake = await VehicleMakeService.GetVehicleMake(id);
-            return View(vehicleMake);
+            VehicleMakeDetailsViewModel vehicleMakeDetailsViewModel = 
+                    new VehicleMakeDetailsViewModel()
+            {
+                VehicleMake = await VehicleMakeService.GetVehicleMake(id)
+            };
+            return View(vehicleMakeDetailsViewModel);
         }
 
         // GET: VehicleMake/Create

@@ -93,6 +93,7 @@ namespace VehicleWebApp.Controllers
         }
 
         // GET: VehicleModel/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -111,9 +112,14 @@ namespace VehicleWebApp.Controllers
 
         // POST: VehicleModel/Edit/5
         [HttpPost]
+        [ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> EditPost(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
             var vehicleModelToUpdate = await VehicleModelService.GetVehicleModel(id);
             if (await TryUpdateModelAsync(
                 vehicleModelToUpdate, "", v => v.VehicleMakeId, v => v.Name, v => v.Abrv))

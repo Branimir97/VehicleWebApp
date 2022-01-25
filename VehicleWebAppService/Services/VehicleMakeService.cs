@@ -38,10 +38,9 @@ namespace VehicleWebAppService
             await DbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateVehicleMake(VehicleMake vehicleMake)
+        public async Task UpdateVehicleMake()
         {
-            DbContext.Update(vehicleMake);
-            await DbContext.SaveChangesAsync();
+           await DbContext.SaveChangesAsync();
         }
         
         public async Task DeleteVehicleMake(int? id)

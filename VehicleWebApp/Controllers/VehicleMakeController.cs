@@ -15,7 +15,7 @@ namespace VehicleWebApp.Controllers
         {
             VehicleMakeService = vehicleMakeService;
         }
-    
+
         // GET: VehicleMake
         public async Task<IActionResult> Index(
             string sortOrder, string currentFilter, string searchString, int? pageNumber)
@@ -66,22 +66,23 @@ namespace VehicleWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind("Name", "Abrv")] VehicleMake vehicleMake)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
+                if (ModelState.IsValid)
                 {
                     await VehicleMakeService.AddVehicleMake(vehicleMake);
                     return RedirectToAction("Index");
-                }
-                catch (DbUpdateException ex)
-                {
-                    ModelState.AddModelError("", ex.Message);
-                }
+                } 
+            } 
+            catch (DbUpdateException ex)
+            {
+                ModelState.AddModelError("", ex.Message);
             }
             return View();
         }
 
         // GET: VehicleMake/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -97,21 +98,30 @@ namespace VehicleWebApp.Controllers
 
         // POST: VehicleMake/Edit/5
         [HttpPost]
+        [ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name", "Abrv")] VehicleMake vehicleMake)
+        public async Task<IActionResult> EditPost(int? id)
         {
-            if(id != vehicleMake.VehicleMakeId)
+            if (id == null)
             {
                 return NotFound();
             }
-            if (ModelState.IsValid)
+            var VehicleMakeToUpdate = await VehicleMakeService.GetVehicleMake(id);
+            VehicleMakeViewModel vehicleMakeViewModel = new()
+            {
+                VehicleMake = VehicleMakeToUpdate
+            };
+            if (await TryUpdateModelAsync<VehicleMake>(
+                VehicleMakeToUpdate,
+                "",
+                v => v.Name, v => v.Abrv))
             {
                 try
                 {
-                    await VehicleMakeService.UpdateVehicleMake(vehicleMake);
-                    return RedirectToAction("Index");
+                    await VehicleMakeService.UpdateVehicleMake();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch(DbUpdateException ex)
+                catch (DbUpdateException ex)
                 {
                     ModelState.AddModelError("", ex.Message);
                 }

@@ -2,7 +2,7 @@
 
 namespace VehicleWebApp.ViewModels
 {
-    public class VehicleMakeDetailsViewModel
+    public class VehicleMakeViewModel
     {
         public VehicleMake VehicleMake { get; set; }
     }

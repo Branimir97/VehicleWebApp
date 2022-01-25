@@ -53,7 +53,7 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            VehicleModelDetailsViewModel vehicleModelViewModel = new()
+            VehicleModelViewModel vehicleModelViewModel = new()
             {
                 VehicleModel = await VehicleModelService.GetVehicleModel(id)
             };
@@ -96,7 +96,7 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            VehicleModelDetailsViewModel vehicleModelDetailsViewModel = new()
+            VehicleModelViewModel vehicleModelDetailsViewModel = new()
             {
                 VehicleModel = await VehicleModelService.GetVehicleModel(id)
             };
@@ -135,7 +135,7 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            VehicleModelDetailsViewModel vehicleModelDetailsViewModel = new()
+            VehicleModelViewModel vehicleModelDetailsViewModel = new()
             {
                 VehicleModel = await VehicleModelService.GetVehicleModel(id)
             };

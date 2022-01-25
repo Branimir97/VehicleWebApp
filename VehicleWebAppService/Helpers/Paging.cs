@@ -10,20 +10,18 @@ namespace VehicleWebAppService.Helpers
     {
         private readonly ISorting Sorting;
         private readonly IFiltering Filtering;
-        private readonly VehicleDbContext DbContext;
 
         public Paging(VehicleDbContext dbContext)
         {
             Sorting = new Sorting(dbContext);  
             Filtering = new Filtering(dbContext);
-            DbContext = dbContext; 
         }
 
         public async Task<IPagedList<VehicleMake>> GetVehicleMakesBy(string sortOrder, string filter, int? pageNumber)
         {
             var sortedVehicleMakes = Sorting.SortVehicleMakes(sortOrder);
-            //var filteredVehicleMakes = Filtering.FilterVehicleMakes(filter);
-            return await sortedVehicleMakes.ToPagedListAsync(pageNumber ?? 1, 10);
+            var filteredVehicleMakes = Filtering.FilterVehicleMakes(filter);
+            return await filteredVehicleMakes.ToPagedListAsync(pageNumber ?? 1, 10);
         }
     }
 }

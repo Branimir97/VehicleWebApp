@@ -20,5 +20,23 @@ namespace VehicleWebAppService
             };
             return VehicleMakes;
         }
+
+        public IEnumerable<VehicleModel> SortVehicleModels(string sortOrder, IEnumerable<VehicleModel> VehicleModels)
+        {
+            VehicleModels = sortOrder switch
+            {
+                "id_desc" => VehicleModels.OrderByDescending(v => v.VehicleModelId),
+                "veh_make_asc" => VehicleModels.OrderBy(v => v.VehicleMake.Name),
+                "veh_make_desc" => VehicleModels.OrderByDescending(v => v.VehicleMake.Name),
+                "veh_abrv_asc" => VehicleModels.OrderBy(v => v.VehicleMake.Abrv),
+                "veh_abrv_desc" => VehicleModels.OrderByDescending(v => v.VehicleMake.Abrv),
+                "model_asc" => VehicleModels.OrderBy(v => v.Name),
+                "model_desc" => VehicleModels.OrderByDescending(v => v.Name),
+                "abrv_asc" => VehicleModels.OrderBy(v => v.Abrv),
+                "abrv_desc" => VehicleModels.OrderByDescending(v => v.Abrv),
+                _ => VehicleModels.OrderBy(v => v.VehicleModelId),
+            };
+            return VehicleModels;
+        }
     }
 }

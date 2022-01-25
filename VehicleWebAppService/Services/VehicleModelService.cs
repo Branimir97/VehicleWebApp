@@ -21,21 +21,7 @@ namespace VehicleWebAppService
             string sortOrder, string searchString, int? pageNumber)
         {
            
-            vehicleModels = sortOrder switch
-            {
-                "id_desc" => vehicleModels.OrderByDescending(v => v.VehicleModelId),
-                "veh_make_asc" => vehicleModels.OrderBy(v => v.VehicleMake.Name),
-                "veh_make_desc" => vehicleModels.OrderByDescending(v => v.VehicleMake.Name),
-                "veh_abrv_asc" => vehicleModels.OrderBy(v => v.VehicleMake.Abrv),
-                "veh_abrv_desc" => vehicleModels.OrderByDescending(v => v.VehicleMake.Abrv),
-                "model_asc" => vehicleModels.OrderBy(v => v.Name),
-                "model_desc" => vehicleModels.OrderByDescending(v => v.Name),
-                "abrv_asc" => vehicleModels.OrderBy(v => v.Abrv),
-                "abrv_desc" => vehicleModels.OrderByDescending(v => v.Abrv),
-                _ => vehicleModels.OrderBy(v => v.VehicleModelId),
-            };
-            int pageSize = 10;
-            return await vehicleModels.ToPagedListAsync(pageNumber ?? 1, 10);
+            
         }
 
         public async Task<VehicleModel> GetVehicleModel(int? id)

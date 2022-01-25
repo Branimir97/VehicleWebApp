@@ -1,4 +1,4 @@
-﻿@model VehicleWebAppService.Models.VehicleMake
+﻿@model VehicleWebApp.ViewModels.VehicleMakeViewModel
 @{ 
     ViewData["Title"] = "Vehicle make edit";
 }
@@ -8,19 +8,19 @@
     <i class="fas fa-long-arrow-alt-left"></i> Back to list
 </a>
 
-<form method="post" asp-controller="VehicleMake" asp-action="Edit" >
+<form method="post" asp-controller="VehicleMake" asp-action="Edit">
     <div asp-validation-summary="All"></div>
     <div class="row">
         <div class="col-md-4 form-group">
             <b>Name:</b>
-            <input class="form-control" asp-for="@Model.Name"/>
+            <input class="form-control" asp-for="@Model.VehicleMake.Name"/>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4 form-group">
             <b>Abrv:</b>
-            <input class="form-control" asp-for="@Model.Abrv"/>
+            <input class="form-control" asp-for="@Model.VehicleMake.Abrv"/>
         </div>
     </div>
-    <input class="btn btn-success" type="submit" value="Edit" />
+    <input class="btn btn-success" type="submit" value="Edit"/>
 </form>

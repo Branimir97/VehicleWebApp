@@ -1,4 +1,4 @@
-﻿@model VehicleWebAppService.Models.VehicleMake
+﻿@model VehicleWebApp.ViewModels.VehicleMakeViewModel
 @{ 
     ViewData["Title"] = "Vehicle make details";
 }
@@ -10,12 +10,12 @@
 
 <div class="row">
     <div class="col-md-4">
-        <p>Id: <b>@Model.VehicleMakeId</b></p>
-        <p>Name: <b>@Model.Name</b></p>
-        <p>Abrv: <b>@Model.Abrv</b></p>
+        <p>Id: <b>@Model.VehicleMake.VehicleMakeId</b></p>
+        <p>Name: <b>@Model.VehicleMake.Name</b></p>
+        <p>Abrv: <b>@Model.VehicleMake.Abrv</b></p>
         
         <p>Vehicle models:</p>
-        @if (@Model.VehicleModels.Count == 0)
+        @if (@Model.VehicleMake.VehicleModels.Count == 0)
        {
             <p class="text-center">
                 <i> There are currently no registrated models for this vehicle make.</i>
@@ -32,7 +32,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in @Model.VehicleModels)
+                    @foreach (var item in @Model.VehicleMake.VehicleModels)
                    {
                         <tr>
                             <td>@item.VehicleModelId</td>
@@ -51,11 +51,11 @@
             </table>
         }
         <a class="btn btn-outline-success" asp-controller="VehicleMake" 
-                asp-action="Edit" asp-route-id="@Model.VehicleMakeId">
+                asp-action="Edit" asp-route-id="@Model.VehicleMake.VehicleMakeId">
             Edit
         </a>
         <a class="btn btn-outline-danger" asp-controller="VehicleMake" 
-                asp-action="Delete" asp-route-id="@Model.VehicleMakeId">
+                asp-action="Delete" asp-route-id="@Model.VehicleMake.VehicleMakeId">
             Delete
         </a>
     </div>

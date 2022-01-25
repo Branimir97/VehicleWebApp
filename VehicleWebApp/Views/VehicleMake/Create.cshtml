@@ -1,4 +1,4 @@
-﻿@model VehicleWebAppService.Models.VehicleMake
+﻿@model VehicleWebApp.ViewModels.VehicleMakeViewModel
 @{ 
     ViewData["Title"] = "Vehicle make create";
 }
@@ -13,13 +13,13 @@
     <div class="row">
         <div class="col-md-4 form-group">
             <b>Name:</b>
-            <input class="form-control" asp-for="@Model.Name" placeholder="eg. BMW"/>
+            <input class="form-control" asp-for="@Model.VehicleMake.Name" placeholder="eg. BMW"/>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4 form-group">
             <b>Abrv:</b>
-            <input class="form-control" asp-for="@Model.Abrv" placeholder="eg. 530xd F10"/>
+            <input class="form-control" asp-for="@Model.VehicleMake.Abrv" placeholder="eg. 530xd F10"/>
         </div>
     </div>
     <input class="btn btn-info" type="submit" value="Create" />

@@ -3,18 +3,19 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using VehicleWebAppService.Models;
 using VehicleWebAppService;
+using VehicleWebApp.ViewModels;
 
 namespace VehicleWebApp.Controllers
 {
     public class VehicleMakeController : Controller
     {
-        private VehicleMakeService VehicleMakeService;
+        private readonly VehicleMakeService VehicleMakeService;
 
         public VehicleMakeController(VehicleMakeService vehicleMakeService)
         {
             VehicleMakeService = vehicleMakeService;
         }
-    
+
         // GET: VehicleMake
         public async Task<IActionResult> Index(
             string sortOrder, string currentFilter, string searchString, int? pageNumber)
@@ -32,10 +33,12 @@ namespace VehicleWebApp.Controllers
                 searchString = currentFilter;
             }
             ViewData["CurrentFilter"] = searchString;
-
-            var vehicleMakes = await VehicleMakeService.GetVehicleMakesBy(
-                    sortOrder, searchString, pageNumber);
-            return View(vehicleMakes);
+            VehicleMakeViewModel vehicleMakeViewModel = new()
+            {
+                VehicleMakes = await VehicleMakeService.GetVehicleMakesBy(
+                    sortOrder, searchString, pageNumber)
+            };
+            return View(vehicleMakeViewModel);
         }
 
         // GET: VehicleMake/Details/5
@@ -45,8 +48,11 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleMake = await VehicleMakeService.GetVehicleMake(id);
-            return View(vehicleMake);
+            VehicleMakeViewModel vehicleMakeViewModel = new()
+            {
+                VehicleMake = await VehicleMakeService.GetVehicleMake(id)
+            };
+            return View(vehicleMakeViewModel);
         }
 
         // GET: VehicleMake/Create
@@ -62,12 +68,12 @@ namespace VehicleWebApp.Controllers
         {
             try
             {
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
                     await VehicleMakeService.AddVehicleMake(vehicleMake);
                     return RedirectToAction("Index");
-                }
-            }
+                } 
+            } 
             catch (DbUpdateException ex)
             {
                 ModelState.AddModelError("", ex.Message);
@@ -76,31 +82,39 @@ namespace VehicleWebApp.Controllers
         }
 
         // GET: VehicleMake/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var vehicleMake = await VehicleMakeService.GetVehicleMake(id);
-            return View(vehicleMake);
+            VehicleMakeViewModel vehicleMakeViewModel = new()
+            {
+                VehicleMake = await VehicleMakeService.GetVehicleMake(id)
+            }; 
+            return View(vehicleMakeViewModel);
         }
 
         // POST: VehicleMake/Edit/5
         [HttpPost]
+        [ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> EditPost(int? id, [Bind("Name", "Abrv")] VehicleMake vehicleMake)
         {
-            var vehicleMakeToUpdate = await VehicleMakeService.GetVehicleMake(id);
-            if (await TryUpdateModelAsync(
-                vehicleMakeToUpdate, "", v => v.Name, v => v.Abrv))
+            if (id != vehicleMake.VehicleMakeId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
             {
                 try
                 {
-                    await VehicleMakeService.UpdateVehicleMake();
+                    await VehicleMakeService.UpdateVehicleMake(vehicleMake);
                     return RedirectToAction("Index");
                 }
-                catch(DbUpdateException ex)
+                catch (DbUpdateException ex)
                 {
                     ModelState.AddModelError("", ex.Message);
                 }
@@ -115,8 +129,11 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleMake = await VehicleMakeService.GetVehicleMake(id);
-            return View(vehicleMake);
+            VehicleMakeViewModel vehicleMakeViewModel = new()
+            {
+                VehicleMake = await VehicleMakeService.GetVehicleMake(id)
+            };
+            return View(vehicleMakeViewModel);
         }
 
         // POST: VehicleMake/Delete/5

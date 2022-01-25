@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using VehicleWebApp.ViewModels;
 using VehicleWebAppService;
 using VehicleWebAppService.Models;
 
@@ -9,7 +10,7 @@ namespace VehicleWebApp.Controllers
 {
     public class VehicleModelController : Controller
     {
-        private VehicleModelService VehicleModelService;
+        private readonly VehicleModelService VehicleModelService;
 
         public VehicleModelController(VehicleModelService vehicleModelService)
         {
@@ -40,10 +41,13 @@ namespace VehicleWebApp.Controllers
             }
             ViewData["CurrentFilter"] = searchString;
 
-            var vehicleModels = await VehicleModelService.GetVehicleModelsBy(
-                    sortOrder, searchString, pageNumber);
-            return View(vehicleModels);
-            }
+            VehicleModelViewModel vehicleModelViewModel = new()
+            {
+                VehicleModels = await VehicleModelService.GetVehicleModelsBy(
+                    sortOrder, searchString, pageNumber)
+            };
+            return View(vehicleModelViewModel);
+        }
 
         // GET: VehicleModel/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -52,8 +56,11 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleModel = await VehicleModelService.GetVehicleModel(id);
-            return View(vehicleModel);
+            VehicleModelViewModel vehicleModelViewModel = new()
+            {
+                VehicleModel = await VehicleModelService.GetVehicleModel(id)
+            };
+            return View(vehicleModelViewModel);
         }
 
         // GET: VehicleModel/Create
@@ -86,31 +93,40 @@ namespace VehicleWebApp.Controllers
         }
 
         // GET: VehicleModel/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var vehicleModel = await VehicleModelService.GetVehicleModel(id);
+            VehicleModelViewModel vehicleModelViewModel = new()
+            {
+                VehicleModel = await VehicleModelService.GetVehicleModel(id)
+            };
             ViewBag.VehicleMakes = new SelectList(await VehicleModelService.
                     GetAllVehicleMakes(), "VehicleMakeId", "Abrv");
 
-            return View(vehicleModel);
+            return View(vehicleModelViewModel);
         }
 
         // POST: VehicleModel/Edit/5
         [HttpPost]
+        [ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> EditPost(int? id, [Bind("VehicleMakeId", "Name", "Abrv")]
+                            VehicleModel vehicleModel)
         {
-            var vehicleModelToUpdate = await VehicleModelService.GetVehicleModel(id);
-            if (await TryUpdateModelAsync(
-                vehicleModelToUpdate, "", v => v.VehicleMakeId, v => v.Name, v => v.Abrv))
+            if (id != vehicleModel.VehicleModelId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
             {
                 try
                 {
-                    await VehicleModelService.UpdateVehicleModel();
+                    await VehicleModelService.UpdateVehicleModel(vehicleModel);
                     return RedirectToAction("Index");
                 }
                 catch (DbUpdateException ex)
@@ -128,8 +144,11 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleModel = await VehicleModelService.GetVehicleModel(id);
-            return View(vehicleModel);
+            VehicleModelViewModel vehicleModelViewModel = new()
+            {
+                VehicleModel = await VehicleModelService.GetVehicleModel(id)
+            };
+            return View(vehicleModelViewModel);
         }
 
         // POST: VehicleModel/Delete/5

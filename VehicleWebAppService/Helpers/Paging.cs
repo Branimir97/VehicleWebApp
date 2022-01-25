@@ -21,7 +21,7 @@ namespace VehicleWebAppService.Helpers
         {
             var filteredVehicleMakes = Filtering.FilterVehicleMakes(filter);
             var sortedVehicleMakes = Sorting.SortVehicleMakes(sortOrder, filteredVehicleMakes);
-            return await sortedVehicleMakes.ToPagedListAsync(pageNumber ?? 1, 2);
+            return await sortedVehicleMakes.ToPagedListAsync(pageNumber ?? 1, 10);
         }
     }
 }

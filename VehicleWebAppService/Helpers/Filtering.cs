@@ -3,6 +3,7 @@ using VehicleWebAppService.DAL;
 using VehicleWebAppService.Models;
 using System.Linq;
 using VehicleWebAppService.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace VehicleWebAppService
 {
@@ -30,6 +31,7 @@ namespace VehicleWebAppService
         {
             var vehicleModels = from v in DbContext.VehicleModels
                                 select v;
+            vehicleModels = vehicleModels.Include(v => v.VehicleMake);
             if (!string.IsNullOrEmpty(filter))
             {
                 vehicleModels = vehicleModels.Where(v => v.VehicleMake.Name.Contains(

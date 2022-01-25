@@ -96,11 +96,14 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleModel = await VehicleModelService.GetVehicleModel(id);
+            VehicleModelDetailsViewModel vehicleModelDetailsViewModel = new()
+            {
+                VehicleModel = await VehicleModelService.GetVehicleModel(id)
+            };
             ViewBag.VehicleMakes = new SelectList(await VehicleModelService.
                     GetAllVehicleMakes(), "VehicleMakeId", "Abrv");
 
-            return View(vehicleModel);
+            return View(vehicleModelDetailsViewModel);
         }
 
         // POST: VehicleModel/Edit/5
@@ -132,8 +135,11 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            var vehicleModel = await VehicleModelService.GetVehicleModel(id);
-            return View(vehicleModel);
+            VehicleModelDetailsViewModel vehicleModelDetailsViewModel = new()
+            {
+                VehicleModel = await VehicleModelService.GetVehicleModel(id)
+            };
+            return View(vehicleModelDetailsViewModel);
         }
 
         // POST: VehicleModel/Delete/5

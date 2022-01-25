@@ -2,10 +2,11 @@
 using VehicleWebAppService.DAL;
 using VehicleWebAppService.Models;
 using System.Linq;
+using VehicleWebAppService.Interfaces;
 
 namespace VehicleWebAppService
 {
-    class Filtering
+    class Filtering : IFiltering
     {
         private readonly VehicleDbContext DbContext;
 

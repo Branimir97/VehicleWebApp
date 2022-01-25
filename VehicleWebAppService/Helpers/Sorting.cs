@@ -2,6 +2,7 @@
 using VehicleWebAppService.DAL;
 using VehicleWebAppService.Models;
 using System.Linq;
+using VehicleWebAppService.Interfaces;
 
 namespace VehicleWebAppService
 {
@@ -15,8 +16,7 @@ namespace VehicleWebAppService
 
         public IEnumerable<VehicleMake> SortVehicleMakes(string sortOrder)
         {
-            var vehicleMakes = from v in DbContext.VehicleMakes
-                               select v;
+            var vehicleMakes = DbContext.VehicleMakes.AsQueryable();
             vehicleMakes = sortOrder switch
             {
                 "id_desc" => vehicleMakes.OrderByDescending(v => v.VehicleMakeId),

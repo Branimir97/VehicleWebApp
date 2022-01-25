@@ -33,10 +33,12 @@ namespace VehicleWebApp.Controllers
                 searchString = currentFilter;
             }
             ViewData["CurrentFilter"] = searchString;
-
-            var vehicleMakes = await VehicleMakeService.GetVehicleMakesBy(
-                    sortOrder, searchString, pageNumber);
-            return View(vehicleMakes);
+            VehicleMakeViewModel vehicleMakeViewModel = new()
+            {
+                VehicleMakes = await VehicleMakeService.GetVehicleMakesBy(
+                    sortOrder, searchString, pageNumber)
+            };
+            return View(vehicleMakeViewModel);
         }
 
         // GET: VehicleMake/Details/5

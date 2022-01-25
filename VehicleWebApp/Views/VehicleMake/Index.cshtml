@@ -1,5 +1,4 @@
-﻿@using VehicleWebAppService
-@model PaginatedList<VehicleWebAppService.Models.VehicleMake>
+﻿@model VehicleWebApp.ViewModels.VehicleMakeViewModel
 @{ 
     ViewData["Title"] = "Vehicle makes";
 }
@@ -18,7 +17,7 @@
     </div>
 </form>
 
-@if (Model == null || Model.Count == 0)
+@if (@Model.VehicleMakes == null || @Model.VehicleMakes.Count == 0)
 {
     <p class="text-center">There are currently no vehicle makes in database.</p>
 } else
@@ -48,7 +47,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in @Model.VehicleMakes)
             {
                 <tr>
                     <td>@item.VehicleMakeId</td>   
@@ -68,20 +67,20 @@
     </table>
 }
 @{
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    var prevDisabled = !Model.VehicleMakes.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.VehicleMakes.HasNextPage ? "disabled" : "";
 }
 
 <a asp-action="Index"
    asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-pageNumber="@(Model.VehicleMakes.PageIndex - 1)"
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
    class="btn btn-default @prevDisabled">
     Previous
 </a>
 <a asp-action="Index"
    asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-pageNumber="@(Model.VehicleMakes.PageIndex + 1)"
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
    class="btn btn-default @nextDisabled">
     Next

@@ -1,11 +1,11 @@
-﻿using VehicleWebAppService;
-using VehicleWebAppService.Models;
+﻿using VehicleWebAppService.Models;
+using X.PagedList;
 
 namespace VehicleWebApp.ViewModels
 {
     public class VehicleMakeViewModel
     {
         public VehicleMake VehicleMake { get; set; }
-        public PaginatedList<VehicleMake> VehicleMakes { get; set; }
+        public IPagedList<VehicleMake> VehicleMakes { get; set; }
     }
 }

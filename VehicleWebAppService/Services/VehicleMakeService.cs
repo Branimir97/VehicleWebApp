@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PagedList;
 using System.Threading.Tasks;
 using VehicleWebAppService.DAL;
 using VehicleWebAppService.Helpers;
 using VehicleWebAppService.Interfaces;
 using VehicleWebAppService.Models;
+using X.PagedList;
 
 namespace VehicleWebAppService
 {

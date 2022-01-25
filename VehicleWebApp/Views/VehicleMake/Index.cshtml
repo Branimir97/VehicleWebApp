@@ -17,7 +17,7 @@
     </div>
 </form>
 
-@if (@Model.VehicleMakes == null)
+@if (@Model.VehicleMakes == null || @Model.VehicleMakes.Count == 0)
 {
     <p class="text-center">There are currently no vehicle makes in database.</p>
 } else
@@ -66,7 +66,7 @@
         </tbody>
     </table>
 }
-@{
+@*@{
     var prevDisabled = !Model.VehicleMakes.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.VehicleMakes.HasNextPage ? "disabled" : "";
 }
@@ -84,4 +84,4 @@
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
    class="btn btn-default @nextDisabled">
     Next
-</a>
+</a>*@

@@ -1,6 +1,6 @@
-﻿using PagedList;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using VehicleWebAppService.Models;
+using X.PagedList;
 
 namespace VehicleWebAppService.Interfaces
 {

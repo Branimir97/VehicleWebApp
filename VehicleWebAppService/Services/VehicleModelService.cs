@@ -4,6 +4,7 @@ using VehicleWebAppService.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using X.PagedList;
 
 namespace VehicleWebAppService
 {
@@ -16,11 +17,11 @@ namespace VehicleWebAppService
             DbContext = dbContext;
         }
 
-        public async Task<PaginatedList<VehicleModel>> GetVehicleModelsBy(
+        public async Task<IPagedList<VehicleModel>> GetVehicleModelsBy(
             string sortOrder, string searchString, int? pageNumber)
         {
             var vehicleModels = from v in DbContext.VehicleModels
-                               select v;
+                                select v;
             if (!string.IsNullOrEmpty(searchString))
             {
                 vehicleModels = vehicleModels.Where(v => v.VehicleMake.Name.Contains(
@@ -40,9 +41,7 @@ namespace VehicleWebAppService
                 _ => vehicleModels.OrderBy(v => v.VehicleModelId),
             };
             int pageSize = 10;
-            return await PaginatedList<VehicleModel>.CreateAsync(
-                vehicleModels.Include(v => v.VehicleMake).AsNoTracking(), 
-                        pageNumber ?? 1, pageSize);
+            return await vehicleModels.ToPagedListAsync(pageNumber ?? 1, 10);
         }
 
         public async Task<VehicleModel> GetVehicleModel(int? id)

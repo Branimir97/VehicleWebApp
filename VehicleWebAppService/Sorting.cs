@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace VehicleWebAppService
 {
-    class Sorting
+    class Sorting : ISorting
     {
         private readonly VehicleDbContext DbContext;
         public Sorting(VehicleDbContext dbContext)

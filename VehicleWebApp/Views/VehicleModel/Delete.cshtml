@@ -27,13 +27,13 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>@Model.VehicleModel.VehicleMakeId</td>
-                    <td>@Model.VehicleMake.Name</td>
-                    <td>@Model.VehicleMake.Abrv</td>
+                    <td>@Model.VehicleModel.VehicleMake.VehicleMakeId</td>
+                    <td>@Model.VehicleModel.VehicleMake.Name</td>
+                    <td>@Model.VehicleModel.VehicleMake.Abrv</td>
                     <td>
                         <a asp-controller="VehicleMake" 
                            asp-action="Details" 
-                           asp-route-id="@Model.VehicleModel.VehicleMakeId">
+                           asp-route-id="@Model.VehicleModel.VehicleMake.VehicleMakeId">
                            Details
                        </a>
                     </td>

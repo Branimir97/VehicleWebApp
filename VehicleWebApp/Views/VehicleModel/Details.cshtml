@@ -1,4 +1,4 @@
-﻿@model VehicleWebAppService.Models.VehicleModel
+﻿@model VehicleWebApp.ViewModels.VehicleModelDetailsViewModel
 @{ 
     ViewData["Title"] = "Vehicle model details";
 }
@@ -10,9 +10,9 @@
 
 <div class="row">
     <div class="col-md-4">
-        <p>Id: <b>@Model.VehicleModelId</b></p>
-        <p>Name: <b>@Model.Name</b></p>
-        <p>Abrv: <b>@Model.Abrv</b></p>
+        <p>Id: <b>@Model.VehicleModel.VehicleModelId</b></p>
+        <p>Name: <b>@Model.VehicleModel.Name</b></p>
+        <p>Abrv: <b>@Model.VehicleModel.Abrv</b></p>
         
         <p>Vehicle make:</p>
         <table class="table">
@@ -26,13 +26,13 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>@Model.VehicleMakeId</td>
-                    <td>@Model.VehicleMake.Name</td>
-                    <td>@Model.VehicleMake.Abrv</td>
+                    <td>@Model.VehicleModel.VehicleMakeId</td>
+                    <td>@Model.VehicleModel.VehicleMake.Name</td>
+                    <td>@Model.VehicleModel.VehicleMake.Abrv</td>
                     <td>
                         <a asp-controller="VehicleMake" 
                            asp-action="Details" 
-                           asp-route-id="@Model.VehicleMakeId">
+                           asp-route-id="@Model.VehicleModel.VehicleMakeId">
                            Details
                        </a>
                     </td>
@@ -40,11 +40,11 @@
             </tbody>
         </table>
          <a class="btn btn-outline-success" asp-controller="VehicleModel" 
-                asp-action="Edit" asp-route-id="@Model.VehicleModelId">
+                asp-action="Edit" asp-route-id="@Model.VehicleModel.VehicleModelId">
             Edit
         </a>
         <a class="btn btn-outline-danger" asp-controller="VehicleModel" 
-                asp-action="Delete" asp-route-id="@Model.VehicleModelId">
+                asp-action="Delete" asp-route-id="@Model.VehicleModel.VehicleModelId">
             Delete
         </a>
     </div>

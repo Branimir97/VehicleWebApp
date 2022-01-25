@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PagedList;
 using System.Threading.Tasks;
 using VehicleWebAppService.DAL;
+using VehicleWebAppService.Helpers;
 using VehicleWebAppService.Interfaces;
 using VehicleWebAppService.Models;
 
@@ -9,18 +11,17 @@ namespace VehicleWebAppService
     public class VehicleMakeService : IVehicleMakeService
     {
         private readonly VehicleDbContext DbContext;
+        private readonly IPaging Paging;
 
         public VehicleMakeService(VehicleDbContext dbContext)
         {
-            DbContext = dbContext;  
+            DbContext = dbContext;
+            Paging = new Paging(dbContext);
         }
 
-        public async Task<PaginatedList<VehicleMake>> GetVehicleMakesBy(
-            string sortOrder, string filter, int? pageNumber)
+        public async Task<IPagedList<VehicleMake>> GetVehicleMakesBy(string sortOrder, string filter, int? pageNumber)
         {
-            int pageSize = 10;
-            return await PaginatedList<VehicleMake>.CreateAsync(vehicleMakes.AsNoTracking(),
-                        pageNumber ?? 1, pageSize);
+            return await Paging.GetVehicleMakesBy(sortOrder, filter, pageNumber);
         }
 
         public async Task<VehicleMake> GetVehicleMake(int? id) 

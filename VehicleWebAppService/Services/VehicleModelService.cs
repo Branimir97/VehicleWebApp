@@ -1,27 +1,29 @@
 ﻿using System.Threading.Tasks;
 using VehicleWebAppService.DAL;
 using VehicleWebAppService.Models;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using X.PagedList;
+using VehicleWebAppService.Helpers;
+using VehicleWebAppService.Interfaces;
 
 namespace VehicleWebAppService
 {
     public class VehicleModelService
     {
         private readonly VehicleDbContext DbContext;
+        private readonly IPaging Paging;
 
         public VehicleModelService(VehicleDbContext dbContext)
         {
             DbContext = dbContext;
+            Paging = new Paging(DbContext);
         }
 
         public async Task<IPagedList<VehicleModel>> GetVehicleModelsBy(
             string sortOrder, string searchString, int? pageNumber)
         {
-           
-            
+           return await Paging.GetVehicleModelsBy(sortOrder, searchString, pageNumber);
         }
 
         public async Task<VehicleModel> GetVehicleModel(int? id)

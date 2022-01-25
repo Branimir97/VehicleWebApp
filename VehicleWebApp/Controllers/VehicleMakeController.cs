@@ -66,17 +66,17 @@ namespace VehicleWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind("Name", "Abrv")] VehicleMake vehicleMake)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if(ModelState.IsValid)
+                try
                 {
                     await VehicleMakeService.AddVehicleMake(vehicleMake);
                     return RedirectToAction("Index");
                 }
-            }
-            catch (DbUpdateException ex)
-            {
-                ModelState.AddModelError("", ex.Message);
+                catch (DbUpdateException ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
             }
             return View();
         }
@@ -98,15 +98,17 @@ namespace VehicleWebApp.Controllers
         // POST: VehicleMake/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id, [Bind("Name", "Abrv")] VehicleMake vehicleMake)
         {
-            var vehicleMakeToUpdate = await VehicleMakeService.GetVehicleMake(id);
-            if (await TryUpdateModelAsync(
-                vehicleMakeToUpdate, "", v => v.Name, v => v.Abrv))
+            if(id != vehicleMake.VehicleMakeId)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
             {
                 try
                 {
-                    await VehicleMakeService.UpdateVehicleMake();
+                    await VehicleMakeService.UpdateVehicleMake(vehicleMake);
                     return RedirectToAction("Index");
                 }
                 catch(DbUpdateException ex)

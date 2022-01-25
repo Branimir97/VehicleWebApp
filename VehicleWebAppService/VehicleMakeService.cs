@@ -18,22 +18,13 @@ namespace VehicleWebAppService
         public async Task<PaginatedList<VehicleMake>> GetVehicleMakesBy(
             string sortOrder, string searchString, int? pageNumber)
         {
-            var vehicleMakes = from v in DbContext.VehicleMakes
-                               select v;
+            
             if (!string.IsNullOrEmpty(searchString))
             {
                 vehicleMakes = vehicleMakes.Where(v => v.Name.Contains(searchString));
             }
 
-            vehicleMakes = sortOrder switch
-            {
-                "id_desc" => vehicleMakes.OrderByDescending(v => v.VehicleMakeId),
-                "name_desc" => vehicleMakes.OrderByDescending(v => v.Name),
-                "name_asc" => vehicleMakes.OrderBy(v => v.Name),
-                "abrv_desc" => vehicleMakes.OrderByDescending(v => v.Abrv),
-                "abrv_asc" => vehicleMakes.OrderBy(v => v.Abrv),
-                _ => vehicleMakes.OrderBy(v => v.VehicleMakeId),
-            };
+            
             int pageSize = 10;
             return await PaginatedList<VehicleMake>.CreateAsync(vehicleMakes.AsNoTracking(),
                         pageNumber ?? 1, pageSize);

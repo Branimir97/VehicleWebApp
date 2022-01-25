@@ -20,13 +20,7 @@ namespace VehicleWebAppService
         public async Task<IPagedList<VehicleModel>> GetVehicleModelsBy(
             string sortOrder, string searchString, int? pageNumber)
         {
-            var vehicleModels = from v in DbContext.VehicleModels
-                                select v;
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                vehicleModels = vehicleModels.Where(v => v.VehicleMake.Name.Contains(
-                        searchString) || v.VehicleMake.Abrv.Contains(searchString));
-            }
+           
             vehicleModels = sortOrder switch
             {
                 "id_desc" => vehicleModels.OrderByDescending(v => v.VehicleModelId),

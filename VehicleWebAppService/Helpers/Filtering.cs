@@ -25,5 +25,17 @@ namespace VehicleWebAppService
             }
             return vehicleMakes;
         }
+
+        public IEnumerable<VehicleModel> FilterVehicleModels(string filter)
+        {
+            var vehicleModels = from v in DbContext.VehicleModels
+                                select v;
+            if (!string.IsNullOrEmpty(filter))
+            {
+                vehicleModels = vehicleModels.Where(v => v.VehicleMake.Name.Contains(
+                        filter) || v.VehicleMake.Abrv.Contains(filter));
+            }
+            return vehicleModels;
+        }
     }
 }

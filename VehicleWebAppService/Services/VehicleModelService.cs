@@ -9,7 +9,7 @@ using VehicleWebAppService.Interfaces;
 
 namespace VehicleWebAppService
 {
-    public class VehicleModelService
+    public class VehicleModelService : IVehicleModelService
     {
         private readonly VehicleDbContext DbContext;
         private readonly IPaging Paging;

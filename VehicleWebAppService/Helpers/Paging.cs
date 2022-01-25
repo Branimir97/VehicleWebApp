@@ -19,9 +19,9 @@ namespace VehicleWebAppService.Helpers
 
         public async Task<IPagedList<VehicleMake>> GetVehicleMakesBy(string sortOrder, string filter, int? pageNumber)
         {
-            var sortedVehicleMakes = Sorting.SortVehicleMakes(sortOrder);
             var filteredVehicleMakes = Filtering.FilterVehicleMakes(filter);
-            return await filteredVehicleMakes.ToPagedListAsync(pageNumber ?? 1, 10);
+            var sortedVehicleMakes = Sorting.SortVehicleMakes(sortOrder, filteredVehicleMakes);
+            return await sortedVehicleMakes.ToPagedListAsync(pageNumber ?? 1, 2);
         }
     }
 }

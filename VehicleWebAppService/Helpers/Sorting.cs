@@ -14,19 +14,19 @@ namespace VehicleWebAppService
             DbContext = dbContext;
         }
 
-        public IEnumerable<VehicleMake> SortVehicleMakes(string sortOrder)
+        public IEnumerable<VehicleMake> SortVehicleMakes(string sortOrder, IEnumerable<VehicleMake> VehicleMakes)
         {
-            var vehicleMakes = DbContext.VehicleMakes.AsQueryable();
-            vehicleMakes = sortOrder switch
+            //var vehicleMakes = DbContext.VehicleMakes.AsQueryable();
+            VehicleMakes = sortOrder switch
             {
-                "id_desc" => vehicleMakes.OrderByDescending(v => v.VehicleMakeId),
-                "name_desc" => vehicleMakes.OrderByDescending(v => v.Name),
-                "name_asc" => vehicleMakes.OrderBy(v => v.Name),
-                "abrv_desc" => vehicleMakes.OrderByDescending(v => v.Abrv),
-                "abrv_asc" => vehicleMakes.OrderBy(v => v.Abrv),
-                _ => vehicleMakes.OrderBy(v => v.VehicleMakeId),
+                "id_desc" => VehicleMakes.OrderByDescending(v => v.VehicleMakeId),
+                "name_desc" => VehicleMakes.OrderByDescending(v => v.Name),
+                "name_asc" => VehicleMakes.OrderBy(v => v.Name),
+                "abrv_desc" => VehicleMakes.OrderByDescending(v => v.Abrv),
+                "abrv_asc" => VehicleMakes.OrderBy(v => v.Abrv),
+                _ => VehicleMakes.OrderBy(v => v.VehicleMakeId),
             };
-            return vehicleMakes;
+            return VehicleMakes;
         }
     }
 }

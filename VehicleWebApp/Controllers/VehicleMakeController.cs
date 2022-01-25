@@ -100,26 +100,19 @@ namespace VehicleWebApp.Controllers
         [HttpPost]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(int? id)
+        public async Task<IActionResult> EditPost(int? id, [Bind("Name", "Abrv")] VehicleMake vehicleMake)
         {
-            if (id == null)
+            if (id != vehicleMake.VehicleMakeId)
             {
                 return NotFound();
             }
-            var VehicleMakeToUpdate = await VehicleMakeService.GetVehicleMake(id);
-            VehicleMakeViewModel vehicleMakeViewModel = new()
-            {
-                VehicleMake = VehicleMakeToUpdate
-            };
-            if (await TryUpdateModelAsync<VehicleMake>(
-                VehicleMakeToUpdate,
-                "",
-                v => v.Name, v => v.Abrv))
+
+            if (ModelState.IsValid)
             {
                 try
                 {
-                    await VehicleMakeService.UpdateVehicleMake();
-                    return RedirectToAction(nameof(Index));
+                    await VehicleMakeService.UpdateVehicleMake(vehicleMake);
+                    return RedirectToAction("Index");
                 }
                 catch (DbUpdateException ex)
                 {

@@ -12,7 +12,7 @@ namespace VehicleWebAppService.Interfaces
         public Task<VehicleModel> GetVehicleModel(int? id);
         public Task<List<VehicleMake>> GetAllVehicleMakes();
         public Task AddVehicleModel(VehicleModel vehicleModel);
-        public Task UpdateVehicleModel();
+        public Task UpdateVehicleModel(VehicleModel vehicleModel);
         public Task DeleteVehicleModel(int? id);
     }
 }

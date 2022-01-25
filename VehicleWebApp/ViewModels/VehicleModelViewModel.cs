@@ -7,7 +7,6 @@ namespace VehicleWebApp.ViewModels
     {
         public VehicleModel VehicleModel { get; set; }
         public VehicleMake VehicleMake { get; set; }
-
         public IPagedList<VehicleModel> VehicleModels { get; set; }
     }
 }

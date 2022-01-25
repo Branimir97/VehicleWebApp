@@ -10,7 +10,7 @@ namespace VehicleWebAppService.Interfaces
             string sortOrder, string filter, int? pageNumber);
         public Task<VehicleMake> GetVehicleMake(int? id);
         public Task AddVehicleMake(VehicleMake vehicleMake);
-        public Task UpdateVehicleMake();
+        public Task UpdateVehicleMake(VehicleMake vehicleMake);
         public Task DeleteVehicleMake(int? id);
     }
 }

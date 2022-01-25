@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using VehicleWebAppService.DAL;
 using VehicleWebAppService.Models;
-using System.Linq;
 
 namespace VehicleWebAppService
 {
@@ -16,13 +15,10 @@ namespace VehicleWebAppService
         }
 
         public async Task<PaginatedList<VehicleMake>> GetVehicleMakesBy(
-            string sortOrder, string searchString, int? pageNumber)
+            string sortOrder, string filter, int? pageNumber)
         {
             
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                vehicleMakes = vehicleMakes.Where(v => v.Name.Contains(searchString));
-            }
+            
 
             
             int pageSize = 10;

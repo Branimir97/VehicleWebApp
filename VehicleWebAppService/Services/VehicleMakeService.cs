@@ -19,7 +19,8 @@ namespace VehicleWebAppService
             Paging = new Paging(dbContext);
         }
 
-        public async Task<IPagedList<VehicleMake>> GetVehicleMakesBy(string sortOrder, string filter, int? pageNumber)
+        public async Task<IPagedList<VehicleMake>> GetVehicleMakesBy(
+            string sortOrder, string filter, int? pageNumber)
         {
             return await Paging.GetVehicleMakesBy(sortOrder, filter, pageNumber);
         }

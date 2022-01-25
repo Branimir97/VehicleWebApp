@@ -48,11 +48,11 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            VehicleMakeViewModel vehicleMakeDetailsViewModel = new()
+            VehicleMakeViewModel vehicleMakeViewModel = new()
             {
                 VehicleMake = await VehicleMakeService.GetVehicleMake(id)
             };
-            return View(vehicleMakeDetailsViewModel);
+            return View(vehicleMakeViewModel);
         }
 
         // GET: VehicleMake/Create
@@ -88,11 +88,11 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            VehicleMakeViewModel vehicleMakeDetailsViewModel = new()
+            VehicleMakeViewModel vehicleMakeViewModel = new()
             {
                 VehicleMake = await VehicleMakeService.GetVehicleMake(id)
             }; 
-            return View(vehicleMakeDetailsViewModel);
+            return View(vehicleMakeViewModel);
         }
 
         // POST: VehicleMake/Edit/5
@@ -124,11 +124,11 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            VehicleMakeViewModel vehicleMakeDetailsViewModel = new()
+            VehicleMakeViewModel vehicleMakeViewModel = new()
             {
                 VehicleMake = await VehicleMakeService.GetVehicleMake(id)
             };
-            return View(vehicleMakeDetailsViewModel);
+            return View(vehicleMakeViewModel);
         }
 
         // POST: VehicleMake/Delete/5

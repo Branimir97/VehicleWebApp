@@ -41,10 +41,13 @@ namespace VehicleWebApp.Controllers
             }
             ViewData["CurrentFilter"] = searchString;
 
-            var vehicleModels = await VehicleModelService.GetVehicleModelsBy(
-                    sortOrder, searchString, pageNumber);
-            return View(vehicleModels);
-            }
+            VehicleModelViewModel vehicleModelViewModel = new()
+            {
+                VehicleModels = await VehicleModelService.GetVehicleModelsBy(
+                    sortOrder, searchString, pageNumber)
+            };
+            return View(vehicleModelViewModel);
+        }
 
         // GET: VehicleModel/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -96,14 +99,14 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            VehicleModelViewModel vehicleModelDetailsViewModel = new()
+            VehicleModelViewModel vehicleModelViewModel = new()
             {
                 VehicleModel = await VehicleModelService.GetVehicleModel(id)
             };
             ViewBag.VehicleMakes = new SelectList(await VehicleModelService.
                     GetAllVehicleMakes(), "VehicleMakeId", "Abrv");
 
-            return View(vehicleModelDetailsViewModel);
+            return View(vehicleModelViewModel);
         }
 
         // POST: VehicleModel/Edit/5
@@ -135,11 +138,11 @@ namespace VehicleWebApp.Controllers
             {
                 return NotFound();
             }
-            VehicleModelViewModel vehicleModelDetailsViewModel = new()
+            VehicleModelViewModel vehicleModelViewModel = new()
             {
                 VehicleModel = await VehicleModelService.GetVehicleModel(id)
             };
-            return View(vehicleModelDetailsViewModel);
+            return View(vehicleModelViewModel);
         }
 
         // POST: VehicleModel/Delete/5

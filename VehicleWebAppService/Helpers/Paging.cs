@@ -13,7 +13,7 @@ namespace VehicleWebAppService.Helpers
 
         public Paging(VehicleDbContext dbContext)
         {
-            Sorting = new Sorting(dbContext);  
+            Sorting = new Sorting();  
             Filtering = new Filtering(dbContext);
         }
 
